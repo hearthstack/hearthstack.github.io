@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hearthstack Kitchen — FAQ, Changelog & Roadmap</title>
+<meta name="description" content="Hearthstack Kitchen: a family meal operations system that runs on your own free accounts. Notion + Telegram + AWS. FAQ, version changelog and public roadmap.">
+<style>
+  :root{--ink:#2a241c;--paper:#faf7f1;--card:#fff;--line:#e5ddd0;--flame:#c46a2e;--jade:#5e8c4a;--dim:#8a7f6e;--code:#f2ede3}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:-apple-system,"Segoe UI","Noto Sans",sans-serif;font-size:15.5px;line-height:1.7;padding:40px 18px 70px}
+  .wrap{max-width:700px;margin:0 auto}
+  .brand{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--flame);font-weight:700}
+  h1{font-size:30px;margin:6px 0 4px;font-weight:800}
+  .tag{color:var(--dim);margin-bottom:10px}
+  .pill{display:inline-block;font-size:12px;border:1px solid var(--jade);color:var(--jade);border-radius:20px;padding:2px 12px;margin:2px 6px 18px 0}
+  h2{font-size:20px;margin:34px 0 10px;padding-top:16px;border-top:2px solid var(--line)}
+  details{background:var(--card);border:1px solid var(--line);border-radius:7px;margin:8px 0;padding:12px 16px}
+  summary{cursor:pointer;font-weight:700;font-size:14.5px}
+  details p{margin:8px 0 2px;font-size:14px;color:#4a4238}
+  .rel{border-left:3px solid var(--jade);padding:2px 0 2px 14px;margin:14px 0}
+  .rel .v{font-weight:800}
+  .rel .d{color:var(--dim);font-size:12.5px;margin-left:8px}
+  .rel ul{margin:6px 0 0 18px;font-size:14px}
+  .rel.next{border-color:var(--flame)}
+  .rel.next .v{color:var(--flame)}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:var(--code);border-radius:3px;padding:1px 5px}
+  footer{margin-top:44px;padding-top:14px;border-top:2px solid var(--line);color:var(--dim);font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">Hearthstack</div>
+  <h1>Hearthstack Kitchen</h1>
+  <p class="tag">A family meal operations system that runs on <b>your own free accounts</b> — Notion for data, Telegram for the family, AWS free tier for the engine. No subscription. Your data never touches our servers.</p>
+  <span class="pill">Current version: v1.0.0</span><span class="pill">Documentation-only support</span><span class="pill">14-day refund</span>
+
+  <h2>FAQ</h2>
+  <details open><summary>Do I need to know how to code?</summary><p>No. The Setup Manual is click-by-click with screenshots, and the Setup Wizard generates every setting for you by asking 8 questions. Most households are fully running in about an hour; the Notion layer alone takes 15 minutes.</p></details>
+  <details><summary>What does it cost to run?</summary><p>The engine fits comfortably in the AWS free tier, Notion free plan is enough, Telegram is free, and AI menu drafting uses your own free Gemini key. Typical ongoing cost: $0.</p></details>
+  <details><summary>Does it work without an AI key?</summary><p>Yes — inventory tracking, daily briefs, approvals and ratings all run without AI. You can draft weekly menus yourself, or paste our prompt into any AI chat you already use (manual, Appendix 3).</p></details>
+  <details><summary>Where does my family's data live?</summary><p>In your Notion workspace and your AWS account, full stop. We have no server, no analytics on your data, and no way to see it. That's a design decision, not a promise.</p></details>
+  <details><summary>My helper doesn't read Chinese / my partner doesn't read English</summary><p>That's the point: the Helper receives the morning brief in English, the Partner in Chinese, from the same system. Bahasa and Tagalog packs are on the roadmap.</p></details>
+  <details><summary>What if Telegram is blocked or shut down someday?</summary><p>Your data is in Notion, untouched. The notification layer is a thin swappable adapter — a Discord-webhook fallback guide is maintained on this page.</p></details>
+  <details><summary>What support do I get?</summary><p>This is a self-serve product: the manual, this FAQ and the changelog are the support channel, kept current with every release. If the documentation genuinely fails you, the 14-day refund applies — no questions asked.</p></details>
+  <details><summary>Can I modify the code?</summary><p>Yes, for your own household — it's a clean, zero-dependency, commented codebase with a 64-assertion test suite included. Redistribution or reselling isn't allowed (see LICENSE).</p></details>
+
+  <h2>Changelog</h2>
+  <div class="rel next"><span class="v">v1.1</span><span class="d">planned — Nov 2026</span>
+    <ul><li><b>Photo-to-inventory</b>: snap your pantry or a shopping haul, AI (your key) lists the items, one tap reconciles stock.</li></ul>
+  </div>
+  <div class="rel"><span class="v">v1.0.0</span><span class="d">Sep 2026 — launch</span>
+    <ul>
+      <li>Inventory projection: red/amber/green reorder status, days-remaining, buy-pack suggestions</li>
+      <li>07:30 bilingual morning briefs (Helper EN · Partner ZH) + tonight's full recipe</li>
+      <li>Sunday 09:00 AI menu draft (your own key) → one-tap family approval → auto shopping lists</li>
+      <li>Nightly dinner rating bell; ratings & cook-counts feed back into future menus</li>
+      <li>Dashboard for stock + recipes, protected by your own key</li>
+      <li>Offline test suite (64 assertions) ships with the product</li>
+    </ul>
+  </div>
+
+  <h2>Roadmap</h2>
+  <div class="rel next"><span class="v">Exploring</span>
+    <ul>
+      <li>Bahasa / Tagalog language packs (helper-first experience)</li>
+      <li>Gulf-region cuisine presets (halal-first defaults)</li>
+      <li>Larger households: unlimited members with per-person permissions</li>
+    </ul>
+  </div>
+  <p style="font-size:13px;color:var(--dim)">Roadmap items ship when they're ready and tested in a real household — ours. No dates promised beyond the next release.</p>
+
+  <footer>© 2026 Hearthstack · <code>hello@hearthstack.studio</code> · Store: hearthstack.gumroad.com<br>
+  This page is the canonical FAQ/changelog referenced inside the product manual.</footer>
+</div>
+</body>
+</html>

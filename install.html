@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hearthstack Kitchen — Install</title>
+<meta name="description" content="Install Hearthstack Kitchen in about 30 minutes. Four buttons. No coding.">
+<style>
+  :root{--ink:#2a241c;--paper:#faf7f1;--card:#fff;--line:#e5ddd0;--flame:#c46a2e;--jade:#5e8c4a;--dim:#8a7f6e;--code:#f2ede3;--warn:#a33f2b}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:-apple-system,"Segoe UI","Noto Sans",sans-serif;font-size:16px;line-height:1.65;padding:30px 16px 70px}
+  .wrap{max-width:560px;margin:0 auto}
+  .brand{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--flame);font-weight:700}
+  h1{font-size:27px;margin:4px 0 6px;font-weight:800}
+  .lead{color:var(--dim);font-size:14.5px}
+  .honest{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--jade);border-radius:8px;padding:12px 14px;margin:16px 0;font-size:14px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}
+  .step .n{display:inline-block;background:var(--flame);color:#fff;border-radius:50%;width:26px;height:26px;text-align:center;line-height:26px;font-weight:800;font-size:14px;margin-right:8px}
+  .step b.t{font-size:16.5px}
+  .step .time{float:right;color:var(--dim);font-size:12.5px;margin-top:4px}
+  .step p{font-size:14px;margin:8px 0;color:#4a4238}
+  .zh{color:var(--dim);font-size:13px}
+  .btn{display:block;text-align:center;background:var(--flame);color:#fff;text-decoration:none;font-weight:800;font-size:16px;border-radius:9px;padding:14px;margin:10px 0 4px}
+  .btn.sec{background:#fff;color:var(--flame);border:2px solid var(--flame)}
+  .paste{background:var(--code);border:1px dashed var(--line);border-radius:6px;padding:8px 10px;font-size:13px;margin:6px 0}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:var(--code);border-radius:3px;padding:1px 5px}
+  .need{font-size:13px;color:var(--dim);margin-top:6px}
+  .warn{background:#fdf1ec;border-left:4px solid var(--warn);border-radius:6px;padding:10px 12px;font-size:13.5px;margin:10px 0}
+  details{margin:8px 0;font-size:14px}
+  summary{color:var(--flame);font-weight:700;cursor:pointer}
+  footer{margin-top:36px;padding-top:14px;border-top:2px solid var(--line);color:var(--dim);font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">Hearthstack Kitchen</div>
+  <h1>Let's set up your kitchen 🏮</h1>
+  <p class="lead">Four buttons, about 30 minutes, no coding. Everything installs into <b>your own free accounts</b> — your family's data never touches our servers.<br><span class="zh">四個掣，約 30 分鐘，唔使識 code。全部裝入你自己嘅免費帳戶 — 資料唔經我哋。</span></p>
+
+  <div class="honest">⏱️ <b>Honest timing:</b> Step 1 alone gives you a working meal-planning workspace in 15 minutes. Steps 2–4 add the automation (briefs, stock alerts, AI menus). Do them in one sitting or come back later — your progress keeps.</div>
+  <div class="honest">💡 <b>One tip before you start:</b> where possible, use the <b>same Google account</b> for Notion sign-in and your AI key — fewer accounts to remember. Different accounts work fine too; just note which one holds what.<br><span class="zh">盡量用同一個 Google account 登入各樣嘢；唔同都得，記住邊個 account 擺咗乜就好。</span></div>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <span class="n">1</span><b class="t">Get your Notion workspace</b><span class="time">15 min · usable now</span>
+    <p>Tap the button, then tap <b>Duplicate</b> (top-right). That's your whole kitchen database — menus, pantry, recipes — with sample data so every screen makes sense.</p>
+    <p class="zh">撳掣 → 右上角 Duplicate。成套廚房系統連示範資料即刻屬於你。</p>
+    <a class="btn" href="[NOTION_TEMPLATE_LINK]">📄 Duplicate the template</a>
+    <p class="need">Needs: a free Notion account (it'll prompt you).</p>
+    <details><summary>Then connect it (2 taps — needed for Step 4)</summary>
+      <p>1. Go to <a href="https://www.notion.so/profile/integrations">notion.so/profile/integrations</a> → <b>New integration</b> → name it <code>hearthstack</code> → Save → copy the <b>secret</b> (starts with <code>ntn_</code>).<br>
+      2. Open your duplicated page → <b>•••</b> (top-right) → <b>Connections</b> → connect <code>hearthstack</code>. Done — keep the secret for Step 3.</p>
+    </details>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <span class="n">2</span><b class="t">Create your family's bot</b><span class="time">3 min</span>
+    <p>Tap to open <b>@BotFather</b> in Telegram → send <code>/newbot</code> → give it a name (e.g. <i>Our Kitchen</i>) and a username ending in <code>bot</code>. Copy the <b>token</b> it replies with.</p>
+    <p class="zh">開 BotFather → /newbot → 改名 → copy 佢回覆嘅 token。</p>
+    <a class="btn" href="https://t.me/BotFather">🤖 Open BotFather</a>
+    <p class="need">Needs: Telegram (which your family will use daily anyway).</p>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <span class="n">3</span><b class="t">Launch your engine on AWS</b><span class="time">10 min</span>
+    <p>One tap opens AWS with everything pre-configured. Sign in, paste your <b>bot token</b> and <b>Notion secret</b> (and your free AI key if you have one — optional), tick the acknowledgement box, tap <b>Create stack</b>. AWS builds the whole engine for you.</p>
+    <p class="zh">一撳開 AWS（已預設好晒）→ 登入 → 貼 bot token 同 Notion secret → 撳 Create stack。引擎自動起好。</p>
+    <a class="btn" href="[CFN_QUICK_CREATE_URL]">🚀 Launch on AWS</a>
+    <p class="need">Needs: an AWS account (free tier covers this system; sign-up asks for a card but typical running cost is $0). <a href="https://aws.amazon.com">Create one here</a> first if you don't have it.</p>
+    <details><summary>Optional: free AI key for auto menu drafting (5 min)</summary>
+      <p>Go to <a href="https://aistudio.google.com">aistudio.google.com</a> → Get API key → Create → copy. Paste it into the <code>GeminiKey</code> field when launching. Skip it and everything still works — you'll write menus yourself.</p>
+    </details>
+    <div class="warn">When the stack shows <b>CREATE_COMPLETE</b> (2–3 min), open the <b>Outputs</b> tab — you'll see your <b>SetupDoctorUrl</b> and <b>PairingCode</b>. You need both in Step 4.</div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <span class="n">4</span><b class="t">Doctor check &amp; pair your family</b><span class="time">5 min</span>
+    <p>Open your <b>SetupDoctorUrl</b> (from Outputs). The Doctor checks all seven layers top-down, fixes what it can by itself, and tells you exactly what to tap if anything's red. Then open your bot in Telegram, send your <b>PairingCode</b> — you're the Admin. Family members just send <code>/start</code> and you approve them with one tap.</p>
+    <p class="zh">開 SetupDoctorUrl — 七步自檢，自己修得嘅自己修，紅咗會話你知撳邊度。之後喺 bot send 配對碼成為 Admin，屋企人 /start 你一撳批准。</p>
+    <div class="paste">SetupDoctorUrl → 喺 AWS stack 嘅 Outputs 分頁 copy</div>
+  </div>
+
+  <div class="honest">✅ <b>That's it.</b> Tomorrow 07:30 the first briefs arrive. Sundays you tap approve on the week's menu. Stock alerts come by themselves.<br>Stuck anywhere? The Doctor page is your first stop; the <a href="[GITHUB_PAGES_URL]">FAQ &amp; manual</a> is the second. 14-day refund, no questions asked.</div>
+
+  <footer>Hearthstack Kitchen v1.0.0 · Personal-use licence — one purchase, one household · <a href="[GITHUB_PAGES_URL]">FAQ / Changelog</a><br>Your data lives in your Notion + your AWS. We couldn't see it even if we wanted to.</footer>
+</div>
+</body>
+</html>
