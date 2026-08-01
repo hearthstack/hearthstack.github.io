@@ -9,31 +9,36 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--paper);color:var(--ink);font-family:-apple-system,"Segoe UI","Noto Sans",sans-serif;font-size:15px;line-height:1.6;padding:32px 16px 60px}
   .wrap{max-width:720px;margin:0 auto}
-  .brand{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--flame);font-weight:600}
+  .brand{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--flame);font-weight:700}
   h1{font-size:26px;margin:4px 0 2px}
   .sub{color:var(--dim);font-size:13.5px;margin-bottom:6px}
   .priv{font-size:12.5px;color:var(--jade);margin-bottom:20px}
-  fieldset{border:1px solid var(--line);border-radius:8px;background:var(--card);padding:14px 16px;margin:14px 0}
-  legend{font-weight:700;font-size:14px;padding:0 6px}
-  legend .zh{font-weight:400;color:var(--dim);font-size:12px}
-  label{display:block;margin:8px 0 3px;font-size:13.5px;font-weight:600}
-  .hint{font-size:12px;color:var(--dim);margin-bottom:4px}
-  input[type=text],input[type=password],select,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:5px;font-size:14px;font-family:inherit;background:#fffdf9}
+  .card{border:1px solid var(--line);border-radius:10px;background:var(--card);margin:16px 0;overflow:hidden}
+  .card-h{background:var(--code);padding:10px 16px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .card-h .n{font-weight:800;font-size:14px;color:var(--flame)}
+  .card-h .t{font-weight:700;font-size:14.5px}
+  .card-h .zh{color:var(--dim);font-size:12px;font-weight:400}
+  .card-b{padding:14px 16px}
+  label{display:block;margin:10px 0 4px;font-size:13.5px;font-weight:600}
+  label:first-child{margin-top:0}
+  .hint{font-size:12px;color:var(--dim);margin:2px 0 6px;line-height:1.5}
+  input[type=text],input[type=password],select,textarea{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:6px;font-size:14px;font-family:inherit;background:#fffdf9}
   textarea{font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
-  .row{display:flex;gap:10px;flex-wrap:wrap}
-  .row>div{flex:1;min-width:150px}
-  .chk{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px}
-  .chk input{width:16px;height:16px}
-  button{cursor:pointer;border:none;border-radius:6px;padding:10px 18px;font-size:14px;font-weight:700}
-  .go{background:var(--flame);color:#fff;width:100%;margin:18px 0 6px;padding:13px}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:170px}
+  .chk{display:flex;align-items:center;gap:9px;margin:8px 0}
+  .chk input{width:17px;height:17px;flex:none}
+  .chk span{font-size:14px}
+  .disc{background:#fdf6ec;border:1px solid #ecd9b8;border-left:4px solid var(--flame);border-radius:6px;padding:10px 12px;font-size:12.5px;margin:10px 0;line-height:1.55}
+  button{cursor:pointer;border:none;border-radius:7px;padding:10px 18px;font-size:14px;font-weight:700}
+  .go{background:var(--flame);color:#fff;width:100%;margin:18px 0 6px;padding:14px;font-size:16px}
   .copy{background:var(--code);border:1px solid var(--line);font-size:12px;padding:4px 10px;font-weight:600}
   .copy.done{background:var(--jade);color:#fff;border-color:var(--jade)}
   h2{font-size:19px;margin:26px 0 8px}
   table{border-collapse:collapse;width:100%;font-size:13px;margin:8px 0}
-  th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:middle}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:middle}
   th{background:var(--code);font-size:11.5px;text-transform:uppercase}
   td code{font-family:ui-monospace,Menlo,monospace;font-size:12px;word-break:break-all}
-  .note{background:#fdf6ec;border:1px solid #ecd9b8;border-left:4px solid var(--flame);border-radius:6px;padding:10px 12px;font-size:13px;margin:10px 0}
   #out{display:none}
   ol.cl{margin-left:20px}
   ol.cl li{margin:6px 0;font-size:13.5px}
@@ -45,9 +50,9 @@
   <div class="brand">Hearthstack</div>
   <h1>Setup Wizard</h1>
   <div class="sub">Answer 8 questions → get your ready-to-paste settings + a checklist tailored to your household.</div>
-  <div class="priv">🔒 Runs entirely in your browser. Nothing you type is uploaded anywhere — you can even use this offline.<span class="muted">（全部喺你部機入面行，零上傳）</span></div>
+  <div class="priv">🔒 Runs entirely in your browser — nothing you type is uploaded anywhere.（全部喺你部機入面行，零上傳）</div>
 
-  <fieldset><legend>1 · Where do you live? <span class="zh">你喺邊</span></legend>
+  <div class="card"><div class="card-h"><span class="n">1</span><span class="t">Where do you live?</span><span class="zh">你喺邊</span></div><div class="card-b">
     <select id="q1">
       <option value="8|hk">Hong Kong 香港 (UTC+8)</option>
       <option value="8|sg">Singapore 新加坡 (UTC+8)</option>
@@ -57,103 +62,100 @@
       <option value="3|gulf">Saudi / Kuwait / Qatar (UTC+3)</option>
       <option value="8|other">Other — I'll adjust later (UTC+8)</option>
     </select>
-  </fieldset>
+  </div></div>
 
-  <fieldset><legend>2 · Who's in the household? <span class="zh">屋企有邊個用</span></legend>
-    <div class="chk"><input type="checkbox" id="hasPartner" checked><label for="hasPartner" style="margin:0">Partner（伴侶 — receives ZH morning brief）</label></div>
-    <div class="chk"><input type="checkbox" id="hasHelper" checked><label for="hasHelper" style="margin:0">Helper（工人姐姐 — receives EN morning brief）</label></div>
-    <div class="hint">You (Admin) are always included. Chat IDs are collected later in Part E of the manual.</div>
-  </fieldset>
+  <div class="card"><div class="card-h"><span class="n">2</span><span class="t">Who's in the household?</span><span class="zh">屋企有邊個用</span></div><div class="card-b">
+    <div class="chk"><input type="checkbox" id="hasPartner" checked><span><b>Partner</b>（伴侶 — receives ZH morning brief）</span></div>
+    <div class="chk"><input type="checkbox" id="hasHelper" checked><span><b>Helper</b>（工人姐姐 — receives EN morning brief）</span></div>
+    <div class="hint">You (Admin) are always included. Chat IDs pair themselves later — send your Pairing Code to the bot, family taps /start, you approve.</div>
+  </div></div>
 
-  <fieldset><legend>3 · Food preferences <span class="zh">飲食偏好（AI 出菜單用）</span></legend>
+  <div class="card"><div class="card-h"><span class="n">3</span><span class="t">Food preferences</span><span class="zh">飲食偏好（AI 出菜單用）</span></div><div class="card-b">
     <label>Avoid / allergies 忌口・過敏</label>
     <input type="text" id="avoid" placeholder="e.g. no beef, shellfish allergy / 唔食牛、蝦敏感">
-    <div class="row">
+    <div class="row" style="margin-top:8px">
       <div><label>Lunchbox next day? 隔日飯盒</label><select id="lunchbox"><option value="yes">Yes</option><option value="no" selected>No</option></select></div>
       <div><label>Soup culture 老火湯</label><select id="soup"><option value="yes" selected>Yes — include soups</option><option value="no">No</option></select></div>
       <div><label>Spice 辣度</label><select id="spice"><option value="none">None</option><option value="mild" selected>Mild</option><option value="hot">Hot</option></select></div>
     </div>
     <label>Anything else the menu AI should know 其他備註</label>
     <input type="text" id="notes" placeholder="e.g. toddler at home, halal, prefer quick weekday dishes">
-  </fieldset>
+  </div></div>
 
-  <fieldset><legend>4 · Second shopping day <span class="zh">第二個買餸日（第一個預設週一）</span></legend>
+  <div class="card"><div class="card-h"><span class="n">4</span><span class="t">Second shopping day</span><span class="zh">第二個買餸日（第一個預設週一）</span></div><div class="card-b">
     <select id="shopday">
       <option value="">Skip — use default (Thursday)</option>
       <option value="1">Tuesday</option><option value="2">Wednesday</option>
       <option value="3">Thursday</option><option value="4">Friday</option><option value="5">Saturday</option>
     </select>
-  </fieldset>
+  </div></div>
 
-  <fieldset><legend>5 · AI menu drafting <span class="zh">AI 自動出菜單</span></legend>
-    <select id="useAi"><option value="yes" selected>Yes — I'll get a free Gemini key (manual Appendix 1)</option><option value="no">No — I'll write menus myself (everything else still works)</option></select>
-    <div id="aiKeyRow"><label>Paste your Gemini API key (or leave blank and add in AWS later)</label>
-    <input type="password" id="llmKey" placeholder="AIza..."></div>
-  </fieldset>
+  <div class="card"><div class="card-h"><span class="n">5</span><span class="t">AI menu drafting</span><span class="zh">AI 自動出菜單 — 你自己揀供應商同 model</span></div><div class="card-b">
+    <label>Provider 供應商</label>
+    <select id="aiProvider" onchange="aiUi()">
+      <option value="gemini" selected>Google Gemini — has a FREE tier（免費層，推薦起步）</option>
+      <option value="anthropic">Anthropic Claude — pay per use 按量收費</option>
+      <option value="openai_compat">OpenAI / DeepSeek / other OpenAI-compatible — pay per use 按量收費</option>
+      <option value="none">No AI — I'll draft menus myself（唔用 AI，其他功能照行）</option>
+    </select>
+    <div class="disc"><b>Honest note 誠實聲明：</b>the AI key is <b>yours</b> — usage is billed by your chosen provider directly to you (Gemini's free tier covers weekly drafting comfortably; paid providers typically cost cents per week at this usage). You choose the provider and the model; you can change both anytime via <code>/settings</code> in Telegram. Current recommended model is kept updated on our FAQ page — models improve and free tiers change over time.<br><span class="muted">條 key 係你嘅：用量由你揀嘅供應商直接向你收（Gemini 免費層足夠每週出菜單）。供應商同 model 都係你自己揀、隨時喺 Telegram /settings 改。當前建議 model 會喺 FAQ 頁持續更新。</span></div>
+    <div id="aiKeyRow">
+      <label>API key（get one: Gemini → aistudio.google.com · others → your provider's console）</label>
+      <input type="password" id="llmKey" placeholder="paste key, or leave blank and add later">
+      <label>Model（leave default unless you know what you want）</label>
+      <input type="text" id="llmModel" placeholder="default: gemini-2.5-flash — check FAQ for current recommendation">
+    </div>
+  </div></div>
 
-  <fieldset><legend>6 · Telegram <span class="zh">（手冊 Part B 攞）</span></legend>
+  <div class="card"><div class="card-h"><span class="n">6</span><span class="t">Telegram</span><span class="zh">（Install Hub Step 2 攞）</span></div><div class="card-b">
     <label>Bot token from @BotFather</label><input type="password" id="tgToken" placeholder="7213456789:AAF...">
-    <div class="hint">Webhook secret will be auto-generated for you below.</div>
-  </fieldset>
+    <div class="hint">Webhook secret is auto-generated for you below.</div>
+  </div></div>
 
-  <fieldset><legend>7 · Notion <span class="zh">（手冊 C3 嗰行）</span></legend>
+  <div class="card"><div class="card-h"><span class="n">7</span><span class="t">Notion</span><span class="zh">（integration secret）</span></div><div class="card-b">
     <label>Integration secret</label><input type="password" id="ntToken" placeholder="ntn_... / secret_...">
-    <label>Paste the URL of each database (open it as full page → copy address bar)</label>
-    <div class="hint">Order: Inventory 物資 · Purchases 入貨 · Events 事件 · Recipes 食譜 · Menu 菜單</div>
-    <input type="text" id="db1" placeholder="Inventory database URL" style="margin:3px 0">
-    <input type="text" id="db2" placeholder="Purchases database URL" style="margin:3px 0">
-    <input type="text" id="db3" placeholder="Events database URL" style="margin:3px 0">
-    <input type="text" id="db4" placeholder="Recipes database URL" style="margin:3px 0">
-    <input type="text" id="db5" placeholder="Menu database URL" style="margin:3px 0">
-  </fieldset>
+    <div class="hint">Database IDs? Not needed anymore — the Setup Doctor discovers all five automatically. 唔使再貼五條 URL，Doctor 自動發現。</div>
+  </div></div>
 
-  <fieldset><legend>8 · Lambda Function URL <span class="zh">（手冊 C2 開完貼返嚟；未有可以留空，遲啲補）</span></legend>
+  <div class="card"><div class="card-h"><span class="n">8</span><span class="t">Lambda Function URL</span><span class="zh">（未有可留空，遲啲補）</span></div><div class="card-b">
     <input type="text" id="fnUrl" placeholder="https://xxxx.lambda-url.ap-southeast-1.on.aws/">
-  </fieldset>
+  </div></div>
 
   <button class="go" onclick="build()">Generate my settings →</button>
 
   <div id="out">
-    <h2>① Environment variables — paste into AWS Lambda (manual C3)</h2>
-    <div class="note">Tap <b>Copy</b> per row → paste as the Value for that Key in Lambda → Save. Blank rows: add later.</div>
+    <h2>① Environment variables — paste into AWS Lambda</h2>
+    <div class="disc">Tap <b>Copy</b> per row → paste as the Value for that Key → Save. Rows marked "add later" can wait.</div>
     <table id="envTable"><tr><th>Key</th><th>Value</th><th></th></tr></table>
-
-    <h2>② Family preferences <span class="muted" style="font-size:13px">(consumed by the release build's menu AI)</span></h2>
+    <h2>② Family preferences（release build 的菜單 AI 會讀取）</h2>
     <textarea id="prefs" rows="4" readonly></textarea>
     <button class="copy" onclick="cp(this,document.getElementById('prefs').value)">Copy FAMILY_PREFS</button>
-
     <h2>③ Your personalised install checklist</h2>
     <ol class="cl" id="checklist"></ol>
-    <div class="note">Keep this page open beside the Setup Manual — the checklist mirrors its Parts A–E, minus anything your household doesn't need.</div>
   </div>
 </div>
 
 <script>
 function rand(n){const c="abcdefghjkmnpqrstuvwxyz23456789ABCDEFGHJKMNPQRSTUVWXYZ";let s="";const a=new Uint32Array(n);crypto.getRandomValues(a);for(let i=0;i<n;i++)s+=c[a[i]%c.length];return s}
-function dbid(u){const m=(u||"").replace(/-/g,"").match(/[0-9a-f]{32}/i);return m?m[0]:""}
 function cp(btn,val){navigator.clipboard.writeText(val).then(()=>{btn.classList.add("done");btn.textContent="Copied ✓";setTimeout(()=>{btn.classList.remove("done");btn.textContent="Copy"},1600)})}
-document.getElementById("useAi").addEventListener("change",e=>{document.getElementById("aiKeyRow").style.display=e.target.value==="yes"?"block":"none"})
+function aiUi(){document.getElementById("aiKeyRow").style.display=document.getElementById("aiProvider").value==="none"?"none":"block"}
 function build(){
   const [tz]=document.getElementById("q1").value.split("|");
   const hasP=document.getElementById("hasPartner").checked, hasH=document.getElementById("hasHelper").checked;
-  const ai=document.getElementById("useAi").value==="yes";
+  const prov=document.getElementById("aiProvider").value;
   const prefs={cuisine_market:document.getElementById("q1").value.split("|")[1],avoid:document.getElementById("avoid").value||"none",lunchbox:document.getElementById("lunchbox").value,soup:document.getElementById("soup").value,spice:document.getElementById("spice").value,notes:document.getElementById("notes").value||""};
+  const provMap={gemini:"gemini",anthropic:"anthropic",openai_compat:"openai"};
   const rows=[
     ["TELEGRAM_TOKEN",document.getElementById("tgToken").value],
     ["TG_WEBHOOK_SECRET",rand(24)],
-    ["TG_CHAT_ADMIN","(get via /id in Part E)"],
-    hasP?["TG_CHAT_PARTNER","(get via /id in Part E)"]:null,
-    hasH?["TG_CHAT_HELPER","(get via /id in Part E)"]:null,
+    ["PAIR_CODE",rand(8)],
     ["NOTION_TOKEN",document.getElementById("ntToken").value],
-    ["NDB_INVENTORY",dbid(document.getElementById("db1").value)],
-    ["NDB_PURCHASES",dbid(document.getElementById("db2").value)],
-    ["NDB_EVENTS",dbid(document.getElementById("db3").value)],
-    ["NDB_RECIPES",dbid(document.getElementById("db4").value)],
-    ["NDB_MENU",dbid(document.getElementById("db5").value)],
     ["DASH_KEY",rand(20)],
     ["DASH_URL",document.getElementById("fnUrl").value],
     ["TZ_OFFSET_HOURS",tz],
-    ai?["LLM_API_KEY",document.getElementById("llmKey").value||"(paste your Gemini key)"]:null,
+    prov!=="none"?["LLM_PROVIDER",provMap[prov]]:null,
+    prov!=="none"?["LLM_API_KEY",document.getElementById("llmKey").value||"(paste your key)"]:null,
+    prov!=="none"&&document.getElementById("llmModel").value?["LLM_MODEL",document.getElementById("llmModel").value]:null,
     document.getElementById("shopday").value?["SHOP_DAY_2",document.getElementById("shopday").value]:null,
   ].filter(Boolean);
   const t=document.getElementById("envTable");t.innerHTML="<tr><th>Key</th><th>Value</th><th></th></tr>";
@@ -163,15 +165,13 @@ function build(){
   document.getElementById("prefs").value=JSON.stringify(prefs);
   const cl=document.getElementById("checklist");cl.innerHTML="";
   const steps=[
-    "Part A — Duplicate the Notion template, run its Start-Here checklist (15 min; usable immediately)",
-    "Part B — Create your bot with @BotFather; paste the token back into this wizard and regenerate",
-    "Part C — Create the Lambda (Node 22), upload the zip, paste every row of table ① above, turn on Function URL",
-    "Part C4 — Set the webhook using the one-line URL in the manual (secret is row 2 above)",
-    "Part D — Create the 5 EventBridge schedules (copy the cron table from the manual; timezone = yours)",
-    "Part E — Everyone sends /id to the bot; paste the chat IDs into the TG_CHAT_* rows; /start to confirm",
-    ai?"Appendix 1 — Get your free Gemini key (5 min) and test with a sunday_draft invoke":"Appendix 3 — Bookmark the manual-menu prompt flow (you chose no-AI mode)",
-    hasH?"Show Helper the six-button keyboard (bot explains it via the ❓ button)":null,
-    "Final — open FUNCTION_URL/health and confirm {\"ok\":true,\"v\":\"1.0.0\"}",
+    "Install Hub Step 1 — Duplicate the Notion template + connect your integration to it (••• → Connections)",
+    "Install Hub Step 2 — Create your bot with @BotFather; paste the token here and regenerate",
+    "Install Hub Step 3 — Launch on AWS (or manual Lambda: paste every row of table ① above)",
+    "Open your Setup Doctor page — it auto-sets the webhook and discovers all 5 databases",
+    "Telegram: send your PAIR_CODE to the bot → you're Admin"+(hasP||hasH?"; family sends /start, you tap approve":""),
+    prov!=="none"?"Test AI drafting: Lambda → Test → {\"job\":\"sunday_draft\"} → approval buttons arrive in Telegram":"No-AI mode: use the Menu Prompt page in your Notion template with any AI chat, or write menus by hand",
+    "Final — Doctor page all green ✅",
   ].filter(Boolean);
   for(const s of steps){const li=document.createElement("li");li.textContent=s;cl.appendChild(li)}
   document.getElementById("out").style.display="block";window.scrollTo({top:document.getElementById("out").offsetTop-10,behavior:"smooth"});
