@@ -3,75 +3,417 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hearthstack Kitchen — FAQ, Changelog & Roadmap</title>
-<meta name="description" content="Hearthstack Kitchen: a family meal operations system that runs on your own free accounts. Notion + Telegram + AWS. FAQ, version changelog and public roadmap.">
+<title>Hearthstack Kitchen — A meal system that runs itself</title>
+<meta name="description" content="A family meal operations system for households where the cook and the planner don't share a first language. Self-hosted. 87 recipes in four languages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--ink:#2a241c;--paper:#faf7f1;--card:#fff;--line:#e5ddd0;--flame:#c46a2e;--jade:#5e8c4a;--dim:#8a7f6e;--code:#f2ede3}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--paper);color:var(--ink);font-family:-apple-system,"Segoe UI","Noto Sans",sans-serif;font-size:15.5px;line-height:1.7;padding:40px 18px 70px}
-  .wrap{max-width:700px;margin:0 auto}
-  .brand{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--flame);font-weight:700}
-  h1{font-size:30px;margin:6px 0 4px;font-weight:800}
-  .tag{color:var(--dim);margin-bottom:10px}
-  .pill{display:inline-block;font-size:12px;border:1px solid var(--jade);color:var(--jade);border-radius:20px;padding:2px 12px;margin:2px 6px 18px 0}
-  h2{font-size:20px;margin:34px 0 10px;padding-top:16px;border-top:2px solid var(--line)}
-  details{background:var(--card);border:1px solid var(--line);border-radius:7px;margin:8px 0;padding:12px 16px}
-  summary{cursor:pointer;font-weight:700;font-size:14.5px}
-  details p{margin:8px 0 2px;font-size:14px;color:#4a4238}
-  .rel{border-left:3px solid var(--jade);padding:2px 0 2px 14px;margin:14px 0}
-  .rel .v{font-weight:800}
-  .rel .d{color:var(--dim);font-size:12.5px;margin-left:8px}
-  .rel ul{margin:6px 0 0 18px;font-size:14px}
-  .rel.next{border-color:var(--flame)}
-  .rel.next .v{color:var(--flame)}
-  code{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:var(--code);border-radius:3px;padding:1px 5px}
-  footer{margin-top:44px;padding-top:14px;border-top:2px solid var(--line);color:var(--dim);font-size:12.5px}
+:root{
+  --tile:#0E3937;        /* deep kitchen tile */
+  --tile-deep:#092524;
+  --grout:#E9EDE7;       /* cool off-white */
+  --steel:#8FA09B;
+  --marigold:#F0A202;    /* signal */
+  --chalk:#F7F9F5;
+  --ink:#0B1817;
+  --rule:rgba(143,160,155,.28);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,sans-serif;
+  --mono:"Azeret Mono",ui-monospace,monospace;
+  --maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--tile);color:var(--grout);
+  font-family:var(--body);font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+a{color:inherit}
+::selection{background:var(--marigold);color:var(--tile-deep)}
+
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(14,57,55,.86);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
+}
+.bar{display:flex;align-items:center;justify-content:space-between;height:66px}
+.mark{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.02em;line-height:1.05}
+.mark span{display:block;font-family:var(--mono);font-weight:400;font-size:10px;
+  letter-spacing:.22em;color:var(--marigold);text-transform:uppercase}
+nav{display:flex;gap:26px;font-size:14px;font-weight:500}
+nav a{text-decoration:none;color:var(--steel);transition:color .18s}
+nav a:hover,nav a:focus-visible{color:var(--chalk)}
+@media(max-width:720px){nav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:78px 0 88px;display:grid;grid-template-columns:1.02fr .98fr;gap:64px;align-items:center}
+@media(max-width:900px){.hero{grid-template-columns:1fr;gap:48px;padding:52px 0 64px}}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--marigold);margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule)}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(38px,5.1vw,62px);
+  line-height:1.02;letter-spacing:-.032em;color:var(--chalk)}
+h1 em{font-style:normal;color:var(--marigold)}
+.sub{margin-top:24px;font-size:19px;color:var(--steel);max-width:33em}
+.sub strong{color:var(--grout);font-weight:600}
+.cta-row{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+.btn{
+  font-family:var(--body);font-weight:600;font-size:15px;text-decoration:none;
+  padding:14px 24px;border-radius:2px;display:inline-block;transition:transform .16s,background .16s;
+}
+.btn-solid{background:var(--marigold);color:var(--tile-deep)}
+.btn-solid:hover{transform:translateY(-2px)}
+.btn-ghost{border:1px solid var(--rule);color:var(--grout)}
+.btn-ghost:hover{border-color:var(--steel);transform:translateY(-2px)}
+.btn:focus-visible{outline:2px solid var(--chalk);outline-offset:3px}
+
+/* ---------- signature: the docket ---------- */
+.docket-stage{position:relative}
+.docket{
+  background:var(--chalk);color:var(--ink);border-radius:2px;
+  padding:26px 26px 30px;position:relative;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.55);
+  max-width:420px;margin-left:auto;
+}
+@media(max-width:900px){.docket{margin:0 auto}}
+.docket::after{ /* torn ticket edge */
+  content:"";position:absolute;left:0;right:0;bottom:-9px;height:10px;
+  background:
+    radial-gradient(circle at 6px -3px, transparent 7px, var(--chalk) 7.5px) 0 0/16px 10px repeat-x;
+}
+.docket-head{display:flex;justify-content:space-between;align-items:baseline;
+  border-bottom:1.5px solid var(--ink);padding-bottom:9px;margin-bottom:16px}
+.docket-head b{font-family:var(--display);font-size:15px;letter-spacing:-.01em}
+.docket-head span{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+.langtabs{display:flex;gap:5px;margin-bottom:16px;flex-wrap:wrap}
+.langtab{
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  padding:5px 9px;border:1px solid rgba(11,24,23,.2);border-radius:2px;
+  background:none;color:var(--ink);cursor:pointer;opacity:.45;transition:all .18s;
+}
+.langtab[aria-selected="true"]{opacity:1;background:var(--ink);color:var(--chalk);border-color:var(--ink)}
+.langtab:focus-visible{outline:2px solid var(--marigold);outline-offset:2px}
+.docket-body{min-height:214px}
+.line{display:flex;gap:11px;padding:9px 0;border-bottom:1px dotted rgba(11,24,23,.22);font-size:15px}
+.line:last-child{border-bottom:none}
+.line .t{font-family:var(--mono);font-size:11px;padding-top:3px;color:#5C6B68;min-width:44px}
+.line .x{font-weight:500}
+.line .n{display:block;font-size:12.5px;color:#5C6B68;font-weight:400;margin-top:2px}
+.docket-foot{margin-top:14px;padding-top:12px;border-top:1.5px solid var(--ink);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:#5C6B68;
+  display:flex;justify-content:space-between}
+.stamp{
+  position:absolute;top:-16px;right:-14px;background:var(--tile-deep);color:var(--marigold);
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;padding:7px 11px;
+  border:1px solid var(--marigold);transform:rotate(3deg);text-transform:uppercase;
+}
+@media(max-width:900px){.stamp{right:8px}}
+.caption{margin-top:20px;font-family:var(--mono);font-size:11.5px;color:var(--steel);
+  text-align:right;max-width:420px;margin-left:auto;line-height:1.7}
+@media(max-width:900px){.caption{text-align:center;margin:20px auto 0}}
+
+/* ---------- sections ---------- */
+section{padding:96px 0;border-top:1px solid var(--rule)}
+@media(max-width:720px){section{padding:64px 0}}
+.sec-label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--marigold);margin-bottom:18px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.6vw,42px);
+  line-height:1.08;letter-spacing:-.028em;color:var(--chalk);max-width:19em}
+.lede{margin-top:20px;font-size:18px;color:var(--steel);max-width:38em}
+
+/* ---------- the loop ---------- */
+.loop{margin-top:52px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+@media(max-width:860px){.loop{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.loop{grid-template-columns:1fr}}
+.stn{padding:26px 22px 26px 0;border-top:2px solid var(--rule);position:relative;transition:border-color .3s}
+.stn:hover,.stn:focus-within{border-top-color:var(--marigold)}
+.stn .k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--marigold);
+  display:block;margin:-1px 0 12px;padding-top:14px}
+.stn h3{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.015em;
+  color:var(--chalk);margin-bottom:8px}
+.stn p{font-size:14.5px;color:var(--steel);line-height:1.62;padding-right:14px}
+.loop-back{margin-top:14px;display:flex;align-items:center;gap:12px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--steel);text-transform:uppercase}
+.loop-back::before{content:"";height:1px;flex:1;background:linear-gradient(90deg,var(--marigold),var(--rule))}
+
+/* ---------- inside grid ---------- */
+.grid{margin-top:48px;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--rule)}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.cell{background:var(--tile);padding:30px 28px}
+.cell h3{font-family:var(--display);font-weight:700;font-size:18px;color:var(--chalk);margin-bottom:10px}
+.cell p{font-size:14.5px;color:var(--steel)}
+.langbar{display:flex;gap:1px;margin-top:18px;background:var(--rule);border:1px solid var(--rule)}
+.langbar div{background:var(--tile-deep);flex:1;padding:11px 6px;text-align:center;
+  font-family:var(--mono);font-size:11px;color:var(--grout)}
+.langbar div b{display:block;font-family:var(--display);font-size:15px;color:var(--marigold);font-weight:700}
+
+/* ---------- editions ---------- */
+.tiers{margin-top:48px;display:grid;grid-template-columns:1fr 1.12fr;gap:26px}
+@media(max-width:820px){.tiers{grid-template-columns:1fr}}
+.tier{border:1px solid var(--rule);padding:32px 30px;display:flex;flex-direction:column}
+.tier.hot{border-color:var(--marigold);background:rgba(240,162,2,.04);position:relative}
+.tier h3{font-family:var(--display);font-weight:800;font-size:23px;color:var(--chalk);letter-spacing:-.02em}
+.tier .role{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--steel);margin-top:6px}
+.price{margin:22px 0 4px;display:flex;align-items:baseline;gap:10px}
+.price b{font-family:var(--display);font-size:40px;font-weight:800;color:var(--chalk);letter-spacing:-.03em}
+.price s{color:var(--steel);font-size:17px}
+.price-note{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--marigold)}
+.tier ul{list-style:none;margin:24px 0 28px;display:flex;flex-direction:column;gap:11px}
+.tier li{font-size:15px;color:var(--grout);padding-left:19px;position:relative;line-height:1.55}
+.tier li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:1.5px;background:var(--marigold)}
+.tier .btn{margin-top:auto;text-align:center}
+.promise{margin-top:26px;border-top:1px solid var(--rule);padding-top:20px}
+.promise b{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--marigold);margin-bottom:9px}
+.promise p{font-size:14px;color:var(--steel);line-height:1.62}
+.promise p em{font-style:normal;color:var(--chalk)}
+.upgrade{margin-top:26px;font-size:14.5px;color:var(--steel);border-left:2px solid var(--marigold);padding-left:16px}
+
+/* ---------- limits ---------- */
+.limits{margin-top:44px;border:1px solid var(--rule)}
+.lim{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:22px 26px;border-bottom:1px solid var(--rule)}
+.lim:last-child{border-bottom:none}
+@media(max-width:640px){.lim{grid-template-columns:1fr;gap:6px}}
+.lim dt{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--marigold);padding-top:3px}
+.lim dd{font-size:15.5px;color:var(--grout)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--rule);padding:44px 0 60px;
+  font-size:13.5px;color:var(--steel)}
+.foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+.ver{font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+.ver a{color:var(--marigold)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="brand">Hearthstack</div>
-  <h1>Hearthstack Kitchen</h1>
-  <p class="tag">A family meal operations system that runs on <b>your own free accounts</b> — Notion for data, Telegram for the family, AWS free tier for the engine. No subscription. Your data never touches our servers.</p>
-  <span class="pill">Current version: v1.0.0</span><span class="pill">Documentation-only support</span><span class="pill">14-day refund</span>
 
-  <h2>FAQ</h2>
-  <details open><summary>Do I need to know how to code?</summary><p>No. The Setup Manual is click-by-click with screenshots, and the Setup Wizard generates every setting for you by asking 8 questions. Most households are fully running in about an hour; the Notion layer alone takes 15 minutes.</p></details>
-  <details><summary>What does it cost to run?</summary><p>The engine fits comfortably in the AWS free tier, Notion free plan is enough, Telegram is free, and AI menu drafting uses your own free Gemini key. Typical ongoing cost: $0.</p></details>
-  <details><summary>Does it work without an AI key?</summary><p>Yes — inventory tracking, daily briefs, approvals and ratings all run without AI. You can draft weekly menus yourself, or paste our prompt into any AI chat you already use (manual, Appendix 3).</p></details>
-  <details><summary>Where does my family's data live?</summary><p>In your Notion workspace and your AWS account, full stop. We have no server, no analytics on your data, and no way to see it. That's a design decision, not a promise.</p></details>
-  <details><summary>My helper doesn't read Chinese / my partner doesn't read English</summary><p>That's the point: the Helper receives the morning brief in English, the Partner in Chinese, from the same system. Bahasa and Tagalog packs are on the roadmap.</p></details>
-  <details><summary>What if Telegram is blocked or shut down someday?</summary><p>Your data is in Notion, untouched. The notification layer is a thin swappable adapter — a Discord-webhook fallback guide is maintained on this page.</p></details>
-  <details><summary>What support do I get?</summary><p>This is a self-serve product: the manual, this FAQ and the changelog are the support channel, kept current with every release. If the documentation genuinely fails you, the 14-day refund applies — no questions asked.</p></details>
-  <details><summary>Can I modify the code?</summary><p>Yes, for your own household — it's a clean, zero-dependency, commented codebase with a 64-assertion test suite included. Redistribution or reselling isn't allowed (see LICENSE).</p></details>
-
-  <h2>Changelog</h2>
-  <div class="rel next"><span class="v">v1.1</span><span class="d">planned — Nov 2026</span>
-    <ul><li><b>Photo-to-inventory</b>: snap your pantry or a shopping haul, AI (your key) lists the items, one tap reconciles stock.</li></ul>
+<header>
+  <div class="wrap bar">
+    <div class="mark">Hearthstack<span>Kitchen</span></div>
+    <nav>
+      <a href="#loop">How it works</a>
+      <a href="#inside">What's inside</a>
+      <a href="#editions">Editions</a>
+      <a href="#limits">Honest limits</a>
+    </nav>
   </div>
-  <div class="rel"><span class="v">v1.0.0</span><span class="d">Sep 2026 — launch</span>
-    <ul>
-      <li>Inventory projection: red/amber/green reorder status, days-remaining, buy-pack suggestions</li>
-      <li>07:30 bilingual morning briefs (Helper EN · Partner ZH) + tonight's full recipe</li>
-      <li>Sunday 09:00 AI menu draft (your own key) → one-tap family approval → auto shopping lists</li>
-      <li>Nightly dinner rating bell; ratings & cook-counts feed back into future menus</li>
-      <li>Dashboard for stock + recipes, protected by your own key</li>
-      <li>Offline test suite (64 assertions) ships with the product</li>
-    </ul>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Self-hosted · Hong Kong · Taiwan · Singapore · Gulf</div>
+      <h1>Your kitchen already runs on someone else's <em>first language</em>.</h1>
+      <p class="sub">Hearthstack Kitchen plans the week, tracks what's left, writes the shopping list, and sends the morning brief to the phone of whoever is cooking — <strong>in the language they actually read</strong>. It runs on your own AWS account. Nothing is hosted by us.</p>
+      <div class="cta-row">
+        <a class="btn btn-solid" href="#editions">See the editions</a>
+        <a class="btn btn-ghost" href="#loop">How the loop works</a>
+      </div>
+    </div>
+
+    <div class="docket-stage">
+      <div class="docket">
+        <div class="stamp">Sent 06:30</div>
+        <div class="docket-head"><b>Morning brief</b><span>Tue · 4 servings</span></div>
+        <div class="langtabs" role="tablist" aria-label="Brief language">
+          <button class="langtab" role="tab" aria-selected="true" data-i="0">中文</button>
+          <button class="langtab" role="tab" aria-selected="false" data-i="1">English</button>
+          <button class="langtab" role="tab" aria-selected="false" data-i="2">Tagalog</button>
+          <button class="langtab" role="tab" aria-selected="false" data-i="3">Bahasa</button>
+        </div>
+        <div class="docket-body" id="brief"></div>
+        <div class="docket-foot"><span id="footL">存貨足夠 · 無需採購</span><span>v1.6.3</span></div>
+      </div>
+      <p class="caption">The same brief, four languages.<br>Your helper reads one. You read another.</p>
+    </div>
   </div>
 
-  <h2>Roadmap</h2>
-  <div class="rel next"><span class="v">Exploring</span>
-    <ul>
-      <li>Bahasa / Tagalog language packs (helper-first experience)</li>
-      <li>Gulf-region cuisine presets (halal-first defaults)</li>
-      <li>Larger households: unlimited members with per-person permissions</li>
-    </ul>
-  </div>
-  <p style="font-size:13px;color:var(--dim)">Roadmap items ship when they're ready and tested in a real household — ours. No dates promised beyond the next release.</p>
+  <!-- LOOP -->
+  <section id="loop">
+    <div class="sec-label">The product is the loop</div>
+    <h2>Most meal planners are a pretty page you abandon in three weeks.</h2>
+    <p class="lede">This one closes the circle. Each station feeds the next, and the last one feeds the first — which is the only reason it's still running in month six.</p>
 
-  <footer>© 2026 Hearthstack · <code>hello@hearthstack.studio</code> · Store: hearthstack.gumroad.com<br>
-  This page is the canonical FAQ/changelog referenced inside the product manual.</footer>
-</div>
+    <div class="loop">
+      <div class="stn"><span class="k">STATION 01</span><h3>Projection</h3><p>The system knows what you bought and what the week's menu will consume. It projects what's actually left in the fridge — before you open it.</p></div>
+      <div class="stn"><span class="k">STATION 02</span><h3>Shopping list</h3><p>The gap between the projection and the menu is the list. Nobody writes it. It arrives already grouped by where you buy things.</p></div>
+      <div class="stn"><span class="k">STATION 03</span><h3>Morning brief</h3><p>What to thaw, what to prep, what to cook, in the reader's own language. One message, on the phone already in the kitchen.</p></div>
+      <div class="stn"><span class="k">STATION 04</span><h3>Ratings</h3><p>One tap after dinner. Dishes your family actually likes come back sooner. Dishes that flopped quietly stop appearing.</p></div>
+    </div>
+    <div class="loop-back">Ratings reshape next week's menu — which changes the projection. Back to 01.</div>
+  </section>
+
+  <!-- INSIDE -->
+  <section id="inside">
+    <div class="sec-label">What's inside</div>
+    <h2>Built for a kitchen with two languages standing in it.</h2>
+
+    <div class="grid">
+      <div class="cell">
+        <h3>87 tested recipes, four languages</h3>
+        <p>Every recipe carries a chef's technique note — the one step people get wrong — and a "lift" tip for taking it from home-cooked to restaurant-grade.</p>
+        <div class="langbar">
+          <div><b>中文</b>Chinese</div><div><b>EN</b>English</div><div><b>TL</b>Tagalog</div><div><b>ID</b>Bahasa</div>
+        </div>
+      </div>
+      <div class="cell">
+        <h3>Every function is a button</h3>
+        <p>The Telegram bot is button-first by design. Text commands exist only as backup. Nobody should have to memorise commands to cook dinner.</p>
+      </div>
+      <div class="cell">
+        <h3>Your infrastructure, your data</h3>
+        <p>AWS Lambda, Node.js 22, zero npm dependencies, one-click CloudFormation deploy. Your family's data never leaves your own account.</p>
+      </div>
+      <div class="cell">
+        <h3>AI is optional, not required</h3>
+        <p>The core system runs with no API key at all. Want AI dish suggestions? Bring your own key — a five-minute appendix shows you how to get a free one.</p>
+      </div>
+      <div class="cell">
+        <h3>Cuisines that fit the region</h3>
+        <p>Cantonese 30 · Japanese 12 · Korean 12 · other Chinese 10 · Western 10 · Thai 5 · Singapore-Malaysia 4 · Southeast Asian 4.</p>
+      </div>
+      <div class="cell">
+        <h3>A manual for someone who's never opened AWS</h3>
+        <p>Step by step, screen by screen. English body with 繁體中文 alongside.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITIONS -->
+  <section id="editions">
+    <div class="sec-label">Editions</div>
+    <h2>Take the templates, or take the whole loop.</h2>
+
+    <div class="tiers">
+      <div class="tier">
+        <h3>Lite</h3>
+        <div class="role">Templates &amp; recipe library</div>
+        <div class="price"><b>$19</b><s>$29</s></div>
+        <div class="price-note">Launch price</div>
+        <ul>
+          <li>87 four-language recipes with chef's notes and lift tips</li>
+          <li>Weekly menu, inventory, shopping list and rating databases, pre-linked</li>
+          <li>Household handbook template for briefing your helper</li>
+          <li>Bilingual usage manual</li>
+        </ul>
+        <a class="btn btn-ghost" href="REPLACE_LITE_URL">Get Lite</a>
+      </div>
+
+      <div class="tier hot">
+        <h3>Full</h3>
+        <div class="role">The operations loop</div>
+        <div class="price"><b>$59</b><s>$79</s></div>
+        <div class="price-note">Launch price · paid beta</div>
+        <ul>
+          <li>Everything in Lite</li>
+          <li>Telegram bot, button-first, four languages</li>
+          <li>Inventory projection → auto shopping list → morning brief → ratings</li>
+          <li>AWS Lambda engine and one-click deploy</li>
+          <li>Step-by-step deployment manual</li>
+          <li>Update channel and public changelog</li>
+        </ul>
+        <div class="promise">
+          <b>Beta buyer upgrade promise</b>
+          <p>Full ships as a paid beta. Every Full buyer receives a free unlock code for the iOS app when it launches, targeting Q1 2027, covering the same tier you bought. If the app hasn't shipped by 30 June 2027, ask for a full refund — no questions, no deadline before that date.<br><br><em>This isn't a promise of future features. It's a promise that you won't pay twice.</em></p>
+        </div>
+        <a class="btn btn-solid" href="REPLACE_FULL_URL" style="margin-top:26px">Get Full</a>
+      </div>
+    </div>
+
+    <p class="upgrade"><strong>Already bought Lite?</strong> Upgrade to Full any time for the price difference, and you inherit the app promise with it.</p>
+  </section>
+
+  <!-- LIMITS -->
+  <section id="limits">
+    <div class="sec-label">Honest limits</div>
+    <h2>Things that would annoy you on day one, said on day zero.</h2>
+    <p class="lede">You're going to find these out anyway. Better here than after you've paid.</p>
+
+    <dl class="limits">
+      <div class="lim"><dt>Setup time</dt><dd>First deployment takes about 45 minutes. It is not one-click-and-done. If that's a dealbreaker, wait for the app.</dd></div>
+      <div class="lim"><dt>Support</dt><dd>Documentation only. No one-to-one setup help. The manual and the FAQ are the support, and they're written to carry that weight.</dd></div>
+      <div class="lim"><dt>Refunds</dt><dd>14 days, no questions asked, on both editions.</dd></div>
+      <div class="lim"><dt>Running cost</dt><dd>AWS free tier covers a normal household. AI features are optional and use your own API key, so you're never billed through us.</dd></div>
+      <div class="lim"><dt>Diet modes</dt><dd>Balanced-by-colour is the default. Mediterranean, keto, high-protein, 16:8 and low-sodium modes adjust one person's portions without changing what the family eats. Calorie figures are shown as ranges and labelled as estimates, because that's what they are.</dd></div>
+      <div class="lim"><dt>Allergies</dt><dd>Set them once and the menu planner avoids those ingredients. Treat it as a planning aid, not a safety guarantee — always read the ingredients yourself before serving.</dd></div>
+      <div class="lim"><dt>What it isn't</dt><dd>Not medical or dietary advice, and not a weight-loss program. It runs a household kitchen.</dd></div>
+    </dl>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>Hearthstack Kitchen — a family meal operations system.</div>
+    <div class="ver">v1.6.3 · <a href="REPLACE_CHANGELOG_URL">Public changelog</a></div>
+  </div>
+</footer>
+
+<script>
+const BRIEFS = [
+  {foot:"存貨足夠 · 無需採購", rows:[
+    ["07:00","解凍",  "急凍雞髀 4 隻 — 移至雪櫃下層"],
+    ["11:30","備料",  "薑蔥切絲、冬菇浸水 30 分鐘"],
+    ["18:00","主菜",  "冬菇蒸雞 · 大火蒸 15 分鐘"],
+    ["18:00","配菜",  "蒜蓉炒時菜 · 灑水加蓋焗 30 秒"],
+    ["18:30","湯",    "紫菜蛋花湯 · 蛋液必須離火倒入"]
+  ]},
+  {foot:"Stock sufficient · no shopping", rows:[
+    ["07:00","Thaw",  "4 chicken thighs — move to lower fridge"],
+    ["11:30","Prep",  "Shred ginger and spring onion; soak shiitake 30 min"],
+    ["18:00","Main",  "Steamed chicken with shiitake · 15 min high heat"],
+    ["18:00","Side",  "Garlic greens · splash water, cover 30 sec"],
+    ["18:30","Soup",  "Seaweed egg drop · add egg off the heat"]
+  ]},
+  {foot:"Sapat ang stock · walang bilhin", rows:[
+    ["07:00","Lasaw", "4 hita ng manok — ilipat sa ibabang ref"],
+    ["11:30","Handa", "Hiwain ang luya at sibuyas; ibabad ang shiitake 30 min"],
+    ["18:00","Ulam",  "Steamed chicken na may shiitake · 15 min malakas na apoy"],
+    ["18:00","Gulay", "Gisang gulay · wisikan ng tubig, takpan 30 segundo"],
+    ["18:30","Sabaw", "Seaweed egg drop · ilagay ang itlog kapag patay ang apoy"]
+  ]},
+  {foot:"Stok cukup · tidak perlu belanja", rows:[
+    ["07:00","Cairkan","4 paha ayam — pindahkan ke rak bawah"],
+    ["11:30","Siapkan","Iris jahe dan daun bawang; rendam shiitake 30 menit"],
+    ["18:00","Utama", "Ayam kukus shiitake · 15 menit api besar"],
+    ["18:00","Sayur", "Tumis sayuran bawang putih · perciki air, tutup 30 detik"],
+    ["18:30","Sup",   "Sup telur rumput laut · masukkan telur setelah api mati"]
+  ]}
+];
+
+const body = document.getElementById('brief');
+const footL = document.getElementById('footL');
+const tabs = [...document.querySelectorAll('.langtab')];
+let idx = 0, timer;
+
+function render(i){
+  const b = BRIEFS[i];
+  body.innerHTML = b.rows.map(r =>
+    `<div class="line"><span class="t">${r[0]}</span><span class="x">${r[1]}<span class="n">${r[2]}</span></span></div>`
+  ).join('');
+  footL.textContent = b.foot;
+  tabs.forEach((t,k)=>t.setAttribute('aria-selected', k===i ? 'true':'false'));
+  idx = i;
+}
+function cycle(){ render((idx+1) % BRIEFS.length); }
+
+tabs.forEach(t => t.addEventListener('click', () => {
+  clearInterval(timer);
+  render(Number(t.dataset.i));
+}));
+
+render(0);
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  timer = setInterval(cycle, 4200);
+}
+</script>
 </body>
 </html>
