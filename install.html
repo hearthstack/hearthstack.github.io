@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hearthstack Kitchen — Install</title>
-<meta name="description" content="Install Hearthstack Kitchen in about 30 minutes. Four buttons. No coding.">
+<meta name="description" content="Install Hearthstack Kitchen in about 35 minutes. No coding.">
 <style>
   :root{--ink:#2a241c;--paper:#faf7f1;--card:#fff;--line:#e5ddd0;--flame:#c46a2e;--jade:#5e8c4a;--dim:#8a7f6e;--code:#f2ede3;--warn:#a33f2b}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -35,7 +35,7 @@
 <div class="wrap">
   <div class="brand">Hearthstack Kitchen</div>
   <h1>Let's set up your kitchen 🏮</h1>
-  <p class="lead">Four buttons, about 30 minutes, no coding. Everything installs into <b>your own free accounts</b> — your family's data never touches our servers.<br><span class="zh">四個掣，約 30 分鐘，唔使識 code。全部裝入你自己嘅免費帳戶 — 資料唔經我哋。</span></p>
+  <p class="lead">Five short steps, about 35 minutes, no coding. Everything installs into <b>your own free accounts</b> — your family's data never touches our servers.<br><span class="zh">五步，約 35 分鐘，唔使識 code。全部裝入你自己嘅免費帳戶 — 資料唔經我哋。</span></p>
 
   <div class="honest">⏱️ <b>Honest timing:</b> Step 1 alone gives you a working meal-planning workspace in 15 minutes. Steps 2–4 add the automation (briefs, stock alerts, AI menus). Do them in one sitting or come back later — your progress keeps.</div>
   <div class="honest">💡 <b>One tip before you start:</b> where possible, use the <b>same Google account</b> for Notion sign-in and your AI key — fewer accounts to remember. Different accounts work fine too; just note which one holds what.<br><span class="zh">盡量用同一個 Google account 登入各樣嘢；唔同都得，記住邊個 account 擺咗乜就好。</span></div>
@@ -43,7 +43,7 @@
   <!-- STEP 1 -->
   <div class="step">
     <span class="n">1</span><b class="t">Get your Notion workspace</b><span class="time">15 min · usable now</span>
-    <p>Tap the button, then tap <b>Duplicate</b> (top-right). That's your whole kitchen database — menus, pantry, recipes — with sample data so every screen makes sense.</p>
+    <p>Tap the button, then tap <b>Duplicate</b> (top-right). That's your whole kitchen database — menus, pantry, recipes — with sample data so every screen makes sense. All 87 recipes ship in four languages — 中文, English, Tagalog and Bahasa Indonesia.</p>
     <p class="zh">撳掣 → 右上角 Duplicate。成套廚房系統連示範資料即刻屬於你。</p>
     <a class="btn" href="https://ballistic-value-78b.notion.site/Hearthstack-Kitchen-Template-Master-v1-0-3b14677587658185ae92d598b6e6c6a3">📄 Duplicate the template</a>
     <p class="need">Needs: a free Notion account (it'll prompt you).</p>
@@ -72,6 +72,9 @@
     <details><summary>Optional: free AI key for auto menu drafting (5 min)</summary>
       <p>Go to <a href="https://aistudio.google.com">aistudio.google.com</a> → Get API key → Create → copy. Paste it into the <code>GeminiKey</code> field when launching. Skip it and everything still works — you'll write menus yourself.</p>
     </details>
+    <details><summary>What you get for free: one-tap updates 一撳更新</summary>
+      <p>The stack sets an <code>UPDATE_URL</code> pointing at the current engine build. When we ship an improvement, you tap <b>update</b> in the Console and your engine pulls the new version — no reinstall, no re-pasting keys. Your recipes, settings and history stay exactly where they are.<br><span class="zh">安裝時已設定 <code>UPDATE_URL</code>。有新版時喺 Console 一撳即更新，唔使重裝、唔使再貼 key，食譜同設定原封不動。</span></p>
+    </details>
     <div class="warn">When the stack shows <b>CREATE_COMPLETE</b> (2–3 min), open the <b>Outputs</b> tab — you'll see your <b>SetupDoctorUrl</b> and <b>PairingCode</b>. You need both in Step 4.</div>
   </div>
 
@@ -83,9 +86,23 @@
     <div class="paste">SetupDoctorUrl → 喺 AWS stack 嘅 Outputs 分頁 copy</div>
   </div>
 
+
+  <!-- STEP 5 — v1.6.7 -->
+  <div class="step">
+    <span class="n">5</span><b class="t">Set allergies &amp; calorie targets</b><span class="time">2 min · do it once</span>
+    <p>In your bot, tap <b>🚫 過敏原</b> and tick anything that must never appear — crustaceans, molluscs, fish, egg, milk, peanuts, tree nuts, soy, gluten, sesame, sulphites, plus no-pork / no-alcohol / no-beef. Tap <b>💾 完成</b>. From then on every menu avoids them automatically; you'll never be asked again.</p>
+    <p class="zh">喺 bot 撳 <b>🚫 過敏原</b> → 剔走絕不可出現嘅項目 → 撳 💾 完成。之後每次出菜單自動避開，唔會再問你。</p>
+    <p>Optional: tap <b>🔥 熱量目標</b> to set a daily calorie target per person. Everyone still eats the same dishes — the system writes a per-person portion adjustment instead of cooking separate meals.</p>
+    <p class="zh">可選：撳 <b>🔥 熱量目標</b> 設定各人每日熱量。全家食同一枱菜，只出個人份量調整。</p>
+    <div class="warn"><b>Please read:</b> the allergy filter is a <b>planning aid, not a safety guarantee</b>. Always read the ingredients yourself before cooking and serving. Sauces hide allergens — oyster sauce contains shellfish, wheat and soy; fish sauce and dashi contain fish; kimchi usually contains shrimp paste.<br><span class="zh">過敏過濾係編餐輔助，唔係安全保證。落單及煮食前請自行核對成分。</span></div>
+    <details><summary>Why flavour never suffers 點解唔會為熱量而變寡味</summary>
+      <p>The engine is instructed that cutting seasoning, spices or steps to save calories is a <b>failure</b>. It must use technique instead — less sugar, no thickening, steam or roast rather than deep-fry, leaner cuts, sauce served on the side, more umami to compensate. Every dish keeps its chef's tip.<br><span class="zh">引擎明文規定：靠減調味、減香料、省步驟嚟減熱量係不合格，只可用手法達成。每道菜必定保留提升貼士。</span></p>
+    </details>
+  </div>
+
   <div class="honest">✅ <b>That's it.</b> Tomorrow 07:30 the first briefs arrive. Sundays you tap approve on the week's menu. Stock alerts come by themselves.<br>Stuck anywhere? The Doctor page is your first stop; the <a href="https://hearthstack.github.io">FAQ &amp; manual</a> is the second. 14-day refund, no questions asked.</div>
 
-  <footer>Hearthstack Kitchen v1.0.0 · Personal-use licence — one purchase, one household · <a href="https://hearthstack.github.io">FAQ / Changelog</a><br>Your data lives in your Notion + your AWS. We couldn't see it even if we wanted to.</footer>
+  <footer>Hearthstack Kitchen · engine v1.6.7 · Personal-use licence — one purchase, one household · <a href="https://hearthstack.github.io">FAQ / Changelog</a><br>Your data lives in your Notion + your AWS. We couldn't see it even if we wanted to.</footer>
 </div>
 </body>
 </html>
