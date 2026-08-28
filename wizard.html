@@ -7,8 +7,13 @@
 <style>
   :root{--ink:#2a241c;--paper:#faf7f1;--card:#fff;--line:#e5ddd0;--flame:#c46a2e;--jade:#5e8c4a;--dim:#8a7f6e;--code:#f2ede3;--warn:#a33f2b}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--paper);color:var(--ink);font-family:-apple-system,"Segoe UI","Noto Sans",sans-serif;font-size:15px;line-height:1.6;padding:32px 16px 60px}
+  body{background:var(--paper);color:var(--ink);font-family:-apple-system,"Segoe UI","Noto Sans",sans-serif;font-size:15px;line-height:1.6;padding:26px 16px 60px}
+  body[lang="zh-Hant"]{font-family:-apple-system,"PingFang HK","Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.8}
   .wrap{max-width:720px;margin:0 auto}
+  .langbar{display:flex;gap:6px;justify-content:flex-end;margin-bottom:14px}
+  .langbar button{border:1px solid var(--line);background:#fff;color:var(--dim);border-radius:999px;padding:5px 15px;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .15s}
+  .langbar button[aria-pressed="true"]{background:var(--flame);color:#fff;border-color:var(--flame)}
+  .langbar button:focus-visible{outline:2px solid var(--flame);outline-offset:2px}
   .brand{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--flame);font-weight:700}
   h1{font-size:26px;margin:4px 0 2px}
   .sub{color:var(--dim);font-size:13.5px;margin-bottom:6px}
@@ -17,20 +22,19 @@
   .card-h{background:var(--code);padding:10px 16px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
   .card-h .n{font-weight:800;font-size:14px;color:var(--flame)}
   .card-h .t{font-weight:700;font-size:14.5px}
-  .card-h .zh{color:var(--dim);font-size:12px;font-weight:400}
   .card-b{padding:14px 16px}
   label{display:block;margin:10px 0 4px;font-size:13.5px;font-weight:600}
   label:first-child{margin-top:0}
-  .hint{font-size:12px;color:var(--dim);margin:2px 0 6px;line-height:1.5}
+  .hint{font-size:12px;color:var(--dim);margin:2px 0 6px;line-height:1.55}
   input[type=text],input[type=password],input[type=number],select,textarea{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:6px;font-size:14px;font-family:inherit;background:#fffdf9}
   textarea{font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
   .row{display:flex;gap:12px;flex-wrap:wrap}
   .row>div{flex:1;min-width:170px}
-  .chk{display:flex;align-items:center;gap:9px;margin:8px 0}
+  .chk{display:flex;align-items:center;gap:9px;margin:7px 0}
   .chk input{width:17px;height:17px;flex:none}
   .chk span{font-size:14px}
-  .disc{background:#fdf6ec;border:1px solid #ecd9b8;border-left:4px solid var(--flame);border-radius:6px;padding:10px 12px;font-size:12.5px;margin:10px 0;line-height:1.55}
-  .safety{background:#fdf1ec;border:1px solid #f0cfc2;border-left:4px solid var(--warn);border-radius:6px;padding:10px 12px;font-size:12.5px;margin:10px 0;line-height:1.55}
+  .disc{background:#fdf6ec;border:1px solid #ecd9b8;border-left:4px solid var(--flame);border-radius:6px;padding:10px 12px;font-size:12.5px;margin:10px 0;line-height:1.6}
+  .safety{background:#fdf1ec;border:1px solid #f0cfc2;border-left:4px solid var(--warn);border-radius:6px;padding:10px 12px;font-size:12.5px;margin:10px 0;line-height:1.6}
   button{cursor:pointer;border:none;border-radius:7px;padding:10px 18px;font-size:14px;font-weight:700}
   .go{background:var(--flame);color:#fff;width:100%;margin:18px 0 6px;padding:14px;font-size:16px}
   .copy{background:var(--code);border:1px solid var(--line);font-size:12px;padding:4px 10px;font-weight:600}
@@ -44,7 +48,7 @@
   ol.cl{margin-left:20px}
   ol.cl li{margin:6px 0;font-size:13.5px}
   .muted{color:var(--dim)}
-  .agrid{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px}
+  .agrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
   @media(max-width:520px){.agrid{grid-template-columns:1fr}}
   .kperson{display:flex;gap:8px;margin:6px 0;align-items:center}
   .kperson input[type=text]{flex:2}
@@ -52,200 +56,372 @@
   .kperson button{background:var(--code);border:1px solid var(--line);padding:6px 10px;font-size:12px}
 </style>
 </head>
-<body>
+<body lang="en">
 <div class="wrap">
-  <div class="brand">Hearthstack</div>
-  <h1>Setup Wizard</h1>
-  <div class="sub">Answer the questions → get your ready-to-paste settings + a checklist tailored to your household. <b>Engine v1.6.6</b></div>
-  <div class="priv">🔒 Runs entirely in your browser — nothing you type is uploaded anywhere.（全部喺你部機入面行，零上傳）</div>
+  <div class="langbar" role="group" aria-label="Language / 語言">
+    <button type="button" data-set="en" aria-pressed="true">English</button>
+    <button type="button" data-set="zh" aria-pressed="false">繁體中文</button>
+  </div>
 
-  <div class="card"><div class="card-h"><span class="n">1</span><span class="t">Where do you live?</span><span class="zh">你喺邊</span></div><div class="card-b">
+  <div class="brand">Hearthstack</div>
+  <h1 data-i="h1"></h1>
+  <div class="sub" data-i="sub"></div>
+  <div class="priv" data-i="priv"></div>
+
+  <div class="card"><div class="card-h"><span class="n">1</span><span class="t" data-i="c1"></span></div><div class="card-b">
     <select id="q1" onchange="setGeo()">
-      <option value="8|hk|22.32|114.17">Hong Kong 香港 (UTC+8)</option>
-      <option value="8|sg|1.35|103.82">Singapore 新加坡 (UTC+8)</option>
-      <option value="8|my|3.14|101.69">Malaysia 馬來西亞 (UTC+8)</option>
-      <option value="8|tw|25.03|121.57">Taiwan 台灣 (UTC+8)</option>
-      <option value="4|gulf|25.20|55.27">UAE (UTC+4)</option>
-      <option value="3|gulf|24.71|46.68">Saudi / Kuwait / Qatar (UTC+3)</option>
-      <option value="8|other||">Other — I'll adjust later (UTC+8)</option>
+      <option value="8|hk|22.32|114.17" data-i="opt_hk"></option>
+      <option value="8|sg|1.35|103.82" data-i="opt_sg"></option>
+      <option value="8|my|3.14|101.69" data-i="opt_my"></option>
+      <option value="8|tw|25.03|121.57" data-i="opt_tw"></option>
+      <option value="4|gulf|25.20|55.27" data-i="opt_ae"></option>
+      <option value="3|gulf|24.71|46.68" data-i="opt_sa"></option>
+      <option value="8|other||" data-i="opt_other"></option>
     </select>
     <div class="row" style="margin-top:8px">
-      <div><label>Latitude 緯度</label><input type="text" id="lat" placeholder="22.32"></div>
-      <div><label>Longitude 經度</label><input type="text" id="lon" placeholder="114.17"></div>
+      <div><label data-i="lat"></label><input type="text" id="lat"></div>
+      <div><label data-i="lon"></label><input type="text" id="lon"></div>
     </div>
-    <div class="hint">Used for weather-aware menus (hot day → lighter dishes). Auto-filled from your city; adjust if you like.<br>用於天氣感知菜單（熱天出清淡啲）。已按城市自動填入。</div>
+    <div class="hint" data-i="geo_hint"></div>
   </div></div>
 
-  <div class="card"><div class="card-h"><span class="n">2</span><span class="t">Who's in the household?</span><span class="zh">屋企有邊個用</span></div><div class="card-b">
-    <div class="chk"><input type="checkbox" id="hasPartner" checked><span><b>Partner</b>（伴侶 — receives 中文 morning brief）</span></div>
-    <div class="chk"><input type="checkbox" id="hasHelper" checked><span><b>Helper</b>（工人姐姐 — receives brief in her own language）</span></div>
-    <label>Helper's language 工人語言</label>
+  <div class="card"><div class="card-h"><span class="n">2</span><span class="t" data-i="c2"></span></div><div class="card-b">
+    <div class="chk"><input type="checkbox" id="hasPartner" checked><span data-i="partner"></span></div>
+    <div class="chk"><input type="checkbox" id="hasHelper" checked><span data-i="helper"></span></div>
+    <label data-i="helper_lang"></label>
     <select id="helperLang">
-      <option value="EN" selected>English</option>
-      <option value="TL">Tagalog（菲律賓）</option>
-      <option value="ID">Bahasa Indonesia（印尼）</option>
-      <option value="ZH">中文</option>
+      <option value="EN">English</option>
+      <option value="TL" data-i="lang_tl"></option>
+      <option value="ID" data-i="lang_id"></option>
+      <option value="ZH" data-i="lang_zh"></option>
     </select>
-    <div class="hint">All 87 recipes ship in all four languages. This picks which one her briefs and recipe steps arrive in.<br>87 道食譜四語齊備，呢度只係揀佢收到邊種。</div>
-    <label>How many people eat dinner? 幾多人食飯</label>
+    <div class="hint" data-i="helper_hint"></div>
+    <label data-i="portions"></label>
     <input type="number" id="portions" value="4" min="1" max="12">
-    <div class="hint">Portion sizes scale from this. If dishes come out small in practice, raise PORTION_FACTOR later (see table ① below).</div>
+    <div class="hint" data-i="portions_hint"></div>
   </div></div>
 
-  <!-- ALLERGENS — v1.6.6 -->
-  <div class="card"><div class="card-h"><span class="n">3</span><span class="t">Allergies &amp; dietary blocks</span><span class="zh">過敏原及飲食限制（剔一次，之後每餐自動避開）</span></div><div class="card-b">
-    <label>Tick anything that must never appear 剔走絕不可出現嘅項目</label>
+  <div class="card"><div class="card-h"><span class="n">3</span><span class="t" data-i="c3"></span></div><div class="card-b">
+    <label data-i="ag_label"></label>
     <div class="agrid" id="agBox"></div>
-    <div class="safety"><b>Please read 請細閱：</b>Ticking these filters your menus to your settings. Treat it as a planning aid, <b>not a safety guarantee</b> — always read the ingredients yourself before cooking and serving. Sauces hide allergens: oyster sauce contains shellfish, wheat and soy; fish sauce and dashi contain fish; kimchi often contains shrimp paste.<br><span class="muted">已按你設定過濾，但唔等於安全保證。落單及煮食前請自行核對成分。醬料會藏過敏原：蠔油含甲殼類、麩質、大豆；魚露及日式高湯含魚類；泡菜通常含蝦醬。</span></div>
-    <label>Halal / religious blocks 宗教限制</label>
+    <div class="safety" data-i="ag_safety"></div>
+    <label data-i="dg_label"></label>
     <div class="agrid" id="dgBox"></div>
-    <div class="hint">Note 留意：mirin and cooking sake are alcoholic — ticking 含酒 removes most Japanese dishes.（味醂同清酒本身係酒，剔咗會濾走大部分日式菜。）</div>
-    <label style="margin-top:14px">Dislikes &amp; preferences 忌口／偏好（非過敏）</label>
-    <input type="text" id="avoid" placeholder="e.g. no coriander, dislikes bitter melon / 唔食芫荽、唔鍾意涼瓜">
-    <div class="hint">Free text — this is a <b>preference</b> filter handled by the menu AI. Anything <b>medical</b> belongs in the checkboxes above, which are enforced by code.<br>自由文字＝偏好，由 AI 處理；醫療性質嘅一定要用上面嘅剔格，嗰啲係程式硬過濾。</div>
+    <div class="hint" data-i="dg_hint"></div>
+    <label style="margin-top:14px" data-i="avoid_label"></label>
+    <input type="text" id="avoid" data-ph="avoid_ph">
+    <div class="hint" data-i="avoid_hint"></div>
   </div></div>
 
-  <!-- CALORIES — v1.6.6 -->
-  <div class="card"><div class="card-h"><span class="n">4</span><span class="t">Daily calorie targets</span><span class="zh">每日熱量目標（可留空）</span></div><div class="card-b">
+  <div class="card"><div class="card-h"><span class="n">4</span><span class="t" data-i="c4"></span></div><div class="card-b">
     <div id="kBox"></div>
-    <button class="copy" onclick="addPerson()">+ Add a person 加一位</button>
-    <div class="hint" style="margin-top:8px">General adult reference: about <b>2000 kcal/day</b> for women, <b>2500</b> for men. These are common general figures — actual needs vary with age, size and activity. This is not personalised dietary advice.<br>一般成人參考：女約 2000、男約 2500 kcal／日。實際因人而異，此非個人化建議。</div>
-    <div class="safety"><b>How it works 點運作：</b>everyone eats the same dishes. The system writes a per-person portion adjustment (skip the rice, half the sauce, sauce on the side) instead of cooking separate meals. Calorie figures are <b>estimates shown as ranges</b>.<br><b>Flavour never gets sacrificed:</b> the engine is instructed that reducing calories by cutting seasoning, spices or steps is a failure — it must use technique instead (less sugar, steam or roast instead of deep-fry, leaner cuts, sauce served separately, more umami to compensate). Every dish keeps its chef's tip.<br><span class="muted">全家食同一枱菜，只出個人份量調整。味道唔會為熱量讓步——每道菜必定保留提升貼士。</span></div>
-    <div class="hint">Leave empty to disable entirely. Targets below 1200 kcal/day are refused by the system.（留空即不啟用。低於 1200 kcal／日系統會拒絕。）</div>
+    <button class="copy" onclick="addPerson()" data-i="add_person"></button>
+    <div class="hint" style="margin-top:8px" data-i="kcal_ref"></div>
+    <div class="safety" data-i="kcal_how"></div>
+    <div class="hint" data-i="kcal_floor"></div>
   </div></div>
 
-  <div class="card"><div class="card-h"><span class="n">5</span><span class="t">Meal style</span><span class="zh">餐飲習慣</span></div><div class="card-b">
+  <div class="card"><div class="card-h"><span class="n">5</span><span class="t" data-i="c5"></span></div><div class="card-b">
     <div class="row">
-      <div><label>Lunchbox next day? 隔日飯盒</label><select id="lunchbox"><option value="yes">Yes</option><option value="no" selected>No</option></select></div>
-      <div><label>Soup culture 老火湯</label><select id="soup"><option value="yes" selected>Yes — include soups</option><option value="no">No</option></select></div>
-      <div><label>Spice 辣度</label><select id="spice"><option value="none">None</option><option value="mild" selected>Mild</option><option value="hot">Hot</option></select></div>
+      <div><label data-i="lunchbox"></label><select id="lunchbox"><option value="yes" data-i="yes"></option><option value="no" selected data-i="no"></option></select></div>
+      <div><label data-i="soup"></label><select id="soup"><option value="yes" selected data-i="soup_yes"></option><option value="no" data-i="no"></option></select></div>
+      <div><label data-i="spice"></label><select id="spice"><option value="none" data-i="spice_none"></option><option value="mild" selected data-i="spice_mild"></option><option value="hot" data-i="spice_hot"></option></select></div>
     </div>
-    <label>Anything else the menu AI should know 其他備註</label>
-    <input type="text" id="notes" placeholder="e.g. toddler at home, prefer quick weekday dishes">
+    <label data-i="notes"></label>
+    <input type="text" id="notes" data-ph="notes_ph">
   </div></div>
 
-  <div class="card"><div class="card-h"><span class="n">6</span><span class="t">Second shopping day</span><span class="zh">第二個買餸日（第一個預設週一）</span></div><div class="card-b">
+  <div class="card"><div class="card-h"><span class="n">6</span><span class="t" data-i="c6"></span></div><div class="card-b">
     <select id="shopday">
-      <option value="">Skip — use default (Thursday)</option>
-      <option value="1">Tuesday</option><option value="2">Wednesday</option>
-      <option value="3">Thursday</option><option value="4">Friday</option><option value="5">Saturday</option>
+      <option value="" data-i="shop_skip"></option>
+      <option value="1" data-i="tue"></option><option value="2" data-i="wed"></option>
+      <option value="3" data-i="thu"></option><option value="4" data-i="fri"></option><option value="5" data-i="sat"></option>
     </select>
   </div></div>
 
-  <div class="card"><div class="card-h"><span class="n">7</span><span class="t">AI menu drafting</span><span class="zh">AI 自動出菜單 — 你自己揀供應商同 model</span></div><div class="card-b">
-    <label>Provider 供應商</label>
+  <div class="card"><div class="card-h"><span class="n">7</span><span class="t" data-i="c7"></span></div><div class="card-b">
+    <label data-i="provider"></label>
     <select id="aiProvider" onchange="aiUi()">
-      <option value="gemini" selected>Google Gemini — has a FREE tier（免費層，推薦起步）</option>
-      <option value="anthropic">Anthropic Claude — pay per use 按量收費</option>
-      <option value="openai_compat">OpenAI / DeepSeek / other OpenAI-compatible — pay per use 按量收費</option>
-      <option value="none">No AI — I'll draft menus myself（唔用 AI，其他功能照行）</option>
+      <option value="gemini" selected data-i="prov_gemini"></option>
+      <option value="anthropic" data-i="prov_anthropic"></option>
+      <option value="openai_compat" data-i="prov_openai"></option>
+      <option value="none" data-i="prov_none"></option>
     </select>
-    <div class="disc"><b>Honest note 誠實聲明：</b>the AI key is <b>yours</b> — usage is billed by your chosen provider directly to you (Gemini's free tier covers weekly drafting comfortably). You choose the provider and the model; change both anytime via the Console or <code>/settings</code> in Telegram.<br><span class="muted">條 key 係你嘅，用量由供應商直接向你收。供應商同 model 隨時改得。</span></div>
+    <div class="disc" data-i="ai_honest"></div>
     <div id="aiKeyRow">
-      <label>API key（Gemini → aistudio.google.com · others → your provider's console）</label>
-      <input type="password" id="llmKey" placeholder="paste key, or leave blank and add later">
-      <label>Model（leave blank to use the engine default）</label>
-      <input type="text" id="llmModel" placeholder="default: gemini-flash-latest">
-      <div class="hint">Use <b>alias-style</b> names such as <code>gemini-flash-latest</code> rather than pinned versions — pinned versions go stale and stop working when the provider retires them.<br>用 alias 式名（如 <code>gemini-flash-latest</code>），唔好寫死版本號，寫死會過期失效。</div>
+      <label data-i="api_key"></label>
+      <input type="password" id="llmKey" data-ph="api_key_ph">
+      <label data-i="model"></label>
+      <input type="text" id="llmModel" data-ph="model_ph">
+      <div class="hint" data-i="model_hint"></div>
     </div>
   </div></div>
 
-  <div class="card"><div class="card-h"><span class="n">8</span><span class="t">Telegram</span><span class="zh">（Install Hub Step 2 攞）</span></div><div class="card-b">
-    <label>Bot token from @BotFather</label><input type="password" id="tgToken" placeholder="7213456789:AAF...">
-    <div class="hint">Webhook secret is auto-generated for you below.</div>
+  <div class="card"><div class="card-h"><span class="n">8</span><span class="t" data-i="c8"></span></div><div class="card-b">
+    <label data-i="bot_token"></label><input type="password" id="tgToken" placeholder="7213456789:AAF...">
+    <div class="hint" data-i="bot_hint"></div>
   </div></div>
 
-  <div class="card"><div class="card-h"><span class="n">9</span><span class="t">Notion</span><span class="zh">（integration secret）</span></div><div class="card-b">
-    <label>Integration secret</label><input type="password" id="ntToken" placeholder="ntn_... / secret_...">
-    <div class="hint">Database IDs? Not needed — the Setup Doctor discovers all five automatically. 唔使貼五條 URL，Doctor 自動發現。</div>
+  <div class="card"><div class="card-h"><span class="n">9</span><span class="t" data-i="c9"></span></div><div class="card-b">
+    <label data-i="nt_secret"></label><input type="password" id="ntToken" placeholder="ntn_... / secret_...">
+    <div class="hint" data-i="nt_hint"></div>
   </div></div>
 
-  <div class="card"><div class="card-h"><span class="n">10</span><span class="t">Lambda Function URL</span><span class="zh">（未有可留空，遲啲補）</span></div><div class="card-b">
+  <div class="card"><div class="card-h"><span class="n">10</span><span class="t" data-i="c10"></span></div><div class="card-b">
     <input type="text" id="fnUrl" placeholder="https://xxxx.lambda-url.ap-southeast-1.on.aws/">
-    <div class="hint">This becomes both your Console link and the address your morning briefs link back to.</div>
+    <div class="hint" data-i="fn_hint"></div>
   </div></div>
 
-  <button class="go" onclick="build()">Generate my settings →</button>
+  <button class="go" onclick="build()" data-i="generate"></button>
 
   <div id="out">
-    <h2>① Environment variables — paste into AWS Lambda</h2>
-    <div class="disc">Tap <b>Copy</b> per row → paste as the Value for that Key → Save. Rows marked "add later" can wait.</div>
-    <table id="envTable"><tr><th>Key</th><th>Value</th><th></th></tr></table>
-    <h2>② Family preferences（菜單 AI 會讀取；過敏原由程式硬過濾）</h2>
-    <textarea id="prefs" rows="6" readonly></textarea>
-    <button class="copy" onclick="cp(this,document.getElementById('prefs').value)">Copy FAMILY_PREFS</button>
-    <h2>③ Your personalised install checklist</h2>
+    <h2 data-i="out1"></h2>
+    <div class="disc" data-i="out1_hint"></div>
+    <table id="envTable"></table>
+    <h2 data-i="out2"></h2>
+    <textarea id="prefs" rows="7" readonly></textarea>
+    <button class="copy" onclick="cp(this,document.getElementById('prefs').value)" data-i="copy_prefs"></button>
+    <h2 data-i="out3"></h2>
     <ol class="cl" id="checklist"></ol>
   </div>
 </div>
 
 <script>
-// ── v1.6.6 白名單：必須同 index.mjs 嘅 ALLERGENS / DIET_TAGS 完全一致 ──
+// ══ 白名單：必須與 index.mjs v1.6.7 的 ALLERGENS / DIET_TAGS 完全一致（值不翻譯，只翻標籤）══
 const ALLERGENS = ["甲殼類","貝類軟體","魚類","蛋","奶類","花生","木本堅果","大豆","麩質小麥","芝麻","亞硫酸鹽"];
-const ALLERGEN_EN = {"甲殼類":"Crustaceans 蝦蟹","貝類軟體":"Molluscs 貝類（元貝・螺・蜆）","魚類":"Fish 魚（含魚露・高湯）","蛋":"Egg 蛋","奶類":"Milk 奶類","花生":"Peanuts 花生","木本堅果":"Tree nuts 堅果","大豆":"Soy 大豆（豉油・豆腐）","麩質小麥":"Gluten / wheat 麩質","芝麻":"Sesame 芝麻（麻油）","亞硫酸鹽":"Sulphites 亞硫酸鹽（乾貨）"};
 const DIET_TAGS = ["含豬","含酒","含牛"];
-const DIET_EN = {"含豬":"No pork 不含豬","含酒":"No alcohol 不含酒（含味醂・清酒）","含牛":"No beef 不含牛"};
 
-function mkChk(box, list, labels, prefix){
-  const el = document.getElementById(box); el.innerHTML = "";
-  list.forEach((name,i)=>{
-    const d = document.createElement("div"); d.className="chk";
-    d.innerHTML = `<input type="checkbox" id="${prefix}${i}" value="${name}"><span>${labels[name]}</span>`;
+const I18N = {
+en:{
+ _agl:{"甲殼類":"Crustaceans (prawn, crab)","貝類軟體":"Molluscs (scallop, clam, squid)","魚類":"Fish (incl. fish sauce, dashi)","蛋":"Egg","奶類":"Milk &amp; dairy","花生":"Peanuts","木本堅果":"Tree nuts","大豆":"Soy (soy sauce, tofu)","麩質小麥":"Gluten / wheat","芝麻":"Sesame (sesame oil)","亞硫酸鹽":"Sulphites (dried goods)"},
+ _dgl:{"含豬":"No pork","含酒":"No alcohol (incl. mirin, cooking sake)","含牛":"No beef"},
+ h1:"Setup Wizard",
+ sub:"Answer the questions and get your ready-to-paste settings, plus a checklist tailored to your household. Engine v1.6.7.",
+ priv:"🔒 Runs entirely in your browser — nothing you type is uploaded anywhere.",
+ c1:"Where do you live?",
+ opt_hk:"Hong Kong (UTC+8)", opt_sg:"Singapore (UTC+8)", opt_my:"Malaysia (UTC+8)", opt_tw:"Taiwan (UTC+8)",
+ opt_ae:"UAE (UTC+4)", opt_sa:"Saudi / Kuwait / Qatar (UTC+3)", opt_other:"Other — I'll adjust later (UTC+8)",
+ lat:"Latitude", lon:"Longitude",
+ geo_hint:"Used for weather-aware menus — a hot day pulls lighter dishes forward. Auto-filled from your city; adjust if you like.",
+ c2:"Who's in the household?",
+ partner:"<b>Partner</b> — receives the morning brief in Chinese",
+ helper:"<b>Helper</b> — receives the morning brief in her own language",
+ helper_lang:"Helper's language",
+ lang_tl:"Tagalog", lang_id:"Bahasa Indonesia", lang_zh:"Chinese",
+ helper_hint:"All 87 recipes ship in all four languages. This only picks which one her briefs and recipe steps arrive in.",
+ portions:"How many people eat dinner?",
+ portions_hint:"Portion sizes scale from this. If dishes come out small in practice, raise PORTION_FACTOR later — see table ① below.",
+ c3:"Allergies &amp; dietary blocks",
+ ag_label:"Tick anything that must never appear",
+ ag_safety:"<b>Please read:</b> ticking these filters your menus to your settings. Treat it as a <b>planning aid, not a safety guarantee</b> — always read the ingredients yourself before cooking and serving. Sauces hide allergens: oyster sauce contains shellfish, wheat and soy; fish sauce and dashi contain fish; kimchi usually contains shrimp paste.",
+ dg_label:"Religious or dietary blocks",
+ dg_hint:"Note: mirin and cooking sake are alcoholic, so ticking “No alcohol” removes most Japanese dishes.",
+ avoid_label:"Dislikes &amp; preferences (not allergies)",
+ avoid_ph:"e.g. no coriander, dislikes bitter melon",
+ avoid_hint:"Free text — this is a <b>preference</b> filter handled by the menu AI. Anything <b>medical</b> belongs in the checkboxes above, which are enforced by code.",
+ c4:"Daily calorie targets",
+ add_person:"+ Add a person",
+ kcal_ref:"General adult reference: about <b>2000 kcal/day</b> for women and <b>2500</b> for men. These are common general figures — actual needs vary with age, size and activity. This is not personalised dietary advice.",
+ kcal_how:"<b>How it works:</b> everyone eats the same dishes. The system writes a per-person portion adjustment — skip the rice, half the sauce, sauce on the side — instead of cooking separate meals. Calorie figures are <b>estimates shown as ranges</b>.<br><b>Flavour is never sacrificed:</b> the engine treats cutting seasoning, spices or steps as a failure. It must use technique instead — less sugar, no thickening, steaming or roasting rather than deep-frying, leaner cuts, sauce on the side, more umami to compensate. Every dish keeps its chef's tip.",
+ kcal_floor:"Leave empty to disable entirely. Targets below 1200 kcal/day are refused by the system.",
+ c5:"Meal style",
+ lunchbox:"Lunchbox next day?", soup:"Soup culture", spice:"Spice level",
+ yes:"Yes", no:"No", soup_yes:"Yes — include soups",
+ spice_none:"None", spice_mild:"Mild", spice_hot:"Hot",
+ notes:"Anything else the menu AI should know",
+ notes_ph:"e.g. toddler at home, prefer quick weekday dishes",
+ c6:"Second shopping day",
+ shop_skip:"Skip — use the default (Thursday)",
+ tue:"Tuesday", wed:"Wednesday", thu:"Thursday", fri:"Friday", sat:"Saturday",
+ c7:"AI menu drafting",
+ provider:"Provider",
+ prov_gemini:"Google Gemini — has a free tier (recommended to start)",
+ prov_anthropic:"Anthropic Claude — pay per use",
+ prov_openai:"OpenAI / DeepSeek / other OpenAI-compatible — pay per use",
+ prov_none:"No AI — I'll draft menus myself (everything else still works)",
+ ai_honest:"<b>Honest note:</b> the AI key is <b>yours</b>. Usage is billed by your chosen provider directly to you — Gemini's free tier covers weekly drafting comfortably. You choose the provider and the model, and you can change both at any time from the Console or <code>/settings</code> in Telegram.",
+ api_key:"API key (Gemini → aistudio.google.com · others → your provider's console)",
+ api_key_ph:"paste key, or leave blank and add later",
+ model:"Model (leave blank to use the engine default)",
+ model_ph:"default: gemini-flash-latest",
+ model_hint:"Use <b>alias-style</b> names such as <code>gemini-flash-latest</code> rather than pinned versions — pinned versions go stale and stop working once the provider retires them.",
+ c8:"Telegram",
+ bot_token:"Bot token from @BotFather",
+ bot_hint:"The webhook secret is generated for you below.",
+ c9:"Notion",
+ nt_secret:"Integration secret",
+ nt_hint:"Database IDs are no longer needed — the Setup Doctor discovers all five automatically.",
+ c10:"Lambda Function URL (leave blank if you don't have it yet)",
+ fn_hint:"This becomes both your Console link and the address your morning briefs link back to.",
+ generate:"Generate my settings →",
+ out1:"① Environment variables — paste into AWS Lambda",
+ out1_hint:"Tap <b>Copy</b> on each row, paste it as the Value for that Key, then Save. Rows marked “add later” can wait.",
+ out2:"② Family preferences (read by the menu AI; allergens are enforced in code)",
+ copy_prefs:"Copy FAMILY_PREFS",
+ out3:"③ Your personalised install checklist",
+ th_key:"Key", th_val:"Value", add_later:"— add later",
+ pf_note:"Optional — raise to 1.2 or 1.3 if dishes come out smaller than your family eats.",
+ alert_low:"Entries below 1200 kcal/day were skipped. This system does not assist with extreme restriction — if you are aiming to lose weight, please speak with a dietitian or doctor first.",
+ cl1:"Install Hub Step 1 — duplicate the Notion template and connect your integration to it (••• → Connections)",
+ cl2:"Install Hub Step 2 — create your bot with @BotFather, paste the token above and regenerate",
+ cl3:"Install Hub Step 3 — launch on AWS, or for a manual Lambda paste every row of table ① above",
+ cl4:"Open your Setup Doctor page — it sets the webhook and discovers all five databases",
+ cl5:"Telegram: send your PAIR_CODE to the bot to become Admin",
+ cl5b:"; family members send /start and you approve them",
+ cl6:"Telegram: tap 🚫 過敏原 and confirm your blocks show as ✅ — ",
+ cl6b:"Telegram: tap 🚫 過敏原 if anyone develops an allergy later; it applies from the next menu onward",
+ cl7:"Telegram: tap 🔥 熱量目標 and confirm each person's daily target",
+ cl8:"Test AI drafting: Lambda → Test → {\"job\":\"sunday_draft\"} → approval buttons arrive in Telegram",
+ cl8b:"No-AI mode: use the Menu Prompt page in your Notion template with any AI chat, or write menus by hand",
+ cl9:"Final — Doctor page all green ✅"
+},
+zh:{
+ _agl:{"甲殼類":"甲殼類（蝦、蟹）","貝類軟體":"貝類軟體（元貝、蜆、魷魚）","魚類":"魚類（包括魚露、日式高湯）","蛋":"蛋","奶類":"奶類及乳製品","花生":"花生","木本堅果":"木本堅果","大豆":"大豆（豉油、豆腐）","麩質小麥":"麩質小麥","芝麻":"芝麻（麻油）","亞硫酸鹽":"亞硫酸鹽（乾貨）"},
+ _dgl:{"含豬":"不含豬","含酒":"不含酒（包括味醂、清酒）","含牛":"不含牛"},
+ h1:"設定精靈",
+ sub:"回答以下問題，即可取得可直接貼上的設定值，以及一份因應你家庭情況而編定的安裝清單。引擎 v1.6.7。",
+ priv:"🔒 全部運算均在你的瀏覽器內進行，你輸入的任何資料均不會上傳。",
+ c1:"你居住於何地？",
+ opt_hk:"香港（UTC+8）", opt_sg:"新加坡（UTC+8）", opt_my:"馬來西亞（UTC+8）", opt_tw:"台灣（UTC+8）",
+ opt_ae:"阿聯酋（UTC+4）", opt_sa:"沙特／科威特／卡塔爾（UTC+3）", opt_other:"其他——稍後自行調整（UTC+8）",
+ lat:"緯度", lon:"經度",
+ geo_hint:"用於天氣感知菜單：天氣炎熱時，系統會優先編排較清淡的菜式。系統已按所選城市自動填入，你可自行調整。",
+ c2:"家中有哪些成員使用？",
+ partner:"<b>伴侶</b>——以中文接收晨早簡報",
+ helper:"<b>家務助理</b>——以其本身語言接收晨早簡報",
+ helper_lang:"家務助理使用的語言",
+ lang_tl:"他加祿文", lang_id:"印尼文", lang_zh:"中文",
+ helper_hint:"全部 87 道食譜均備四種語言。此選項只決定其簡報與食譜步驟以哪一種語言送達。",
+ portions:"晚餐用膳人數",
+ portions_hint:"份量將按此人數換算。若實際烹調後份量偏少，可稍後調高 PORTION_FACTOR，詳見下方表格①。",
+ c3:"過敏原及飲食限制",
+ ag_label:"請勾選絕不可出現的項目",
+ ag_safety:"<b>請細閱：</b>勾選後，系統將按你的設定過濾菜單。此為<b>編餐輔助，並非安全保證</b>——採購及烹調前請務必自行核對成分。醬料常藏過敏原：蠔油含甲殼類、麩質及大豆；魚露及日式高湯含魚類；泡菜通常含蝦醬。",
+ dg_label:"宗教或飲食限制",
+ dg_hint:"請留意：味醂與清酒本身即屬含酒調味料，故勾選「不含酒」後，大部分日式菜式將被濾走。",
+ avoid_label:"忌口及偏好（非過敏）",
+ avoid_ph:"例如：不吃芫荽、不喜歡涼瓜",
+ avoid_hint:"此欄為自由文字，屬<b>偏好</b>過濾，由編排菜單的 AI 處理。凡屬<b>醫療性質</b>者，必須使用上方的勾選項目，該部分由程式強制執行。",
+ c4:"每日熱量目標",
+ add_person:"＋ 新增一位成員",
+ kcal_ref:"一般成人參考值：女性約 <b>2000 kcal／日</b>，男性約 <b>2500 kcal／日</b>。此為通用參考數字，實際需要因年齡、體型及活動量而異，並非個人化飲食建議。",
+ kcal_how:"<b>運作方式：</b>全家享用同一席菜式。系統只會提供個人份量調整——例如走飯、醬汁減半、醬汁另上——而非另行烹調。熱量數字為<b>估算值，以範圍顯示</b>。<br><b>風味絕不讓步：</b>引擎已明文規定，以減少調味、減少香料或省略步驟來降低熱量，一律視為不合格，只可透過烹調手法達成——減糖、不埋芡、以蒸或烤代替油炸、選用較瘦部位、醬汁另上、增加鮮味作補償。每道菜式均保留其提升貼士。",
+ kcal_floor:"如不需要此功能，留空即可。低於 1200 kcal／日的目標，系統將不予接受。",
+ c5:"用餐習慣",
+ lunchbox:"是否需要翌日飯盒？", soup:"是否設有湯品", spice:"辣度",
+ yes:"需要", no:"不需要", soup_yes:"設有——包括湯品",
+ spice_none:"不辣", spice_mild:"微辣", spice_hot:"辣",
+ notes:"其他需要編排菜單的 AI 知悉的事項",
+ notes_ph:"例如：家中有幼兒、平日偏好快手菜式",
+ c6:"第二個採購日",
+ shop_skip:"略過——採用預設（星期四）",
+ tue:"星期二", wed:"星期三", thu:"星期四", fri:"星期五", sat:"星期六",
+ c7:"AI 編排菜單",
+ provider:"服務供應商",
+ prov_gemini:"Google Gemini——設有免費層（建議由此起步）",
+ prov_anthropic:"Anthropic Claude——按用量收費",
+ prov_openai:"OpenAI／DeepSeek／其他 OpenAI 相容服務——按用量收費",
+ prov_none:"不使用 AI——自行編寫菜單（其他功能一律照常運作）",
+ ai_honest:"<b>誠實聲明：</b>該 AI 金鑰屬<b>你所有</b>。用量由你所選的供應商直接向你收費——Gemini 免費層額度足以應付每週編排菜單所需。供應商與 model 均由你自行選擇，並可隨時於 Console 或 Telegram 的 <code>/settings</code> 更改。",
+ api_key:"API 金鑰（Gemini 請往 aistudio.google.com；其他請往該供應商的控制台）",
+ api_key_ph:"貼上金鑰，或留空稍後補上",
+ model:"Model（留空即採用引擎預設值）",
+ model_ph:"預設：gemini-flash-latest",
+ model_hint:"請使用 <b>alias 式</b>名稱（例如 <code>gemini-flash-latest</code>），切勿寫死版本號。寫死的版本號會隨供應商停止支援而失效。",
+ c8:"Telegram",
+ bot_token:"由 @BotFather 取得的 bot token",
+ bot_hint:"Webhook secret 將於下方自動生成。",
+ c9:"Notion",
+ nt_secret:"Integration secret",
+ nt_hint:"無須再提供資料庫 ID——Setup Doctor 會自動發現全部五個資料庫。",
+ c10:"Lambda Function URL（尚未取得可留空）",
+ fn_hint:"此網址將同時作為你的 Console 連結，以及晨早簡報所連回的位址。",
+ generate:"生成我的設定 →",
+ out1:"① 環境變數——請貼入 AWS Lambda",
+ out1_hint:"逐行點按 <b>Copy</b>，將其貼為該 Key 的 Value，然後儲存。標示為「稍後補上」的項目可暫時擱置。",
+ out2:"② 家庭偏好設定（供編排菜單的 AI 讀取；過敏原則由程式強制執行）",
+ copy_prefs:"複製 FAMILY_PREFS",
+ out3:"③ 因應你家庭情況而編定的安裝清單",
+ th_key:"Key", th_val:"值", add_later:"——稍後補上",
+ pf_note:"選填項目：若實際烹調後份量較家人食量為少，可調高至 1.2 或 1.3。",
+ alert_low:"低於 1200 kcal／日的項目已略過。本系統不會協助設定極端的熱量限制；如你有減重需要，建議先諮詢註冊營養師或醫生。",
+ cl1:"安裝指引步驟一——複製 Notion 模板，並將你的 integration 連接至該頁面（••• → Connections）",
+ cl2:"安裝指引步驟二——以 @BotFather 建立 bot，將 token 貼入上方欄位後重新生成",
+ cl3:"安裝指引步驟三——於 AWS 建置；如採用手動 Lambda，請將上方表格①每一行逐一貼入",
+ cl4:"開啟 Setup Doctor 頁面——系統會設定 webhook 並自動發現全部五個資料庫",
+ cl5:"Telegram：向 bot 發送你的 PAIR_CODE，即成為管理員",
+ cl5b:"；家庭成員發送 /start 後，由你批准",
+ cl6:"Telegram：點按 🚫 過敏原，確認以下項目均顯示為 ✅——",
+ cl6b:"Telegram：日後如有家人出現過敏，可隨時點按 🚫 過敏原設定，設定將由下一份菜單起生效",
+ cl7:"Telegram：點按 🔥 熱量目標，確認各成員的每日目標",
+ cl8:"測試 AI 編排：Lambda → Test → {\"job\":\"sunday_draft\"} → 批核按鈕將送達 Telegram",
+ cl8b:"未使用 AI 模式：可於 Notion 模板的 Menu Prompt 頁面配合任何 AI 對話工具使用，或自行編寫菜單",
+ cl9:"最後——確認 Doctor 頁面全部顯示綠色 ✅"
+}};
+
+var LANG = "en";
+function T(k){ return I18N[LANG][k]; }
+
+function mkChk(box, list, labelKey, prefix){
+  var el=document.getElementById(box), labels=I18N[LANG][labelKey], keep={};
+  [].slice.call(el.querySelectorAll("input")).forEach(function(i){ keep[i.value]=i.checked; });
+  el.innerHTML="";
+  list.forEach(function(name,i){
+    var d=document.createElement("div"); d.className="chk";
+    d.innerHTML='<input type="checkbox" id="'+prefix+i+'" value="'+name+'"><span>'+labels[name]+'</span>';
     el.appendChild(d);
+    if(keep[name]) document.getElementById(prefix+i).checked=true;
   });
 }
-function picked(prefix, list){
-  return list.filter((_,i)=>document.getElementById(prefix+i).checked);
-}
-let kIdx = 0;
-function addPerson(name, val){
-  const box = document.getElementById("kBox"); const i = kIdx++;
-  const d = document.createElement("div"); d.className="kperson";
-  d.innerHTML = `<input type="text" id="kn${i}" placeholder="Name 稱呼 e.g. 爸爸" value="${name||""}">
-    <input type="number" id="kv${i}" placeholder="kcal/day" min="1200" max="5000" value="${val||""}">
-    <button onclick="this.parentNode.remove()">✕</button>`;
+function picked(prefix,list){ return list.filter(function(_,i){ return document.getElementById(prefix+i).checked; }); }
+var kIdx=0;
+function addPerson(name,val){
+  var box=document.getElementById("kBox"), i=kIdx++;
+  var d=document.createElement("div"); d.className="kperson";
+  d.innerHTML='<input type="text" id="kn'+i+'" data-ph="kn_ph" value="'+(name||"")+'">'+
+    '<input type="number" id="kv'+i+'" data-ph="kv_ph" min="1200" max="5000" value="'+(val||"")+'">'+
+    '<button onclick="this.parentNode.remove()">✕</button>';
   box.appendChild(d);
+  d.querySelector('input[type=text]').placeholder = (LANG==="zh"?"稱呼，例如：爸爸":"Name, e.g. Dad");
+  d.querySelector('input[type=number]').placeholder = (LANG==="zh"?"kcal／日":"kcal/day");
 }
 function setGeo(){
-  const p = document.getElementById("q1").value.split("|");
-  document.getElementById("lat").value = p[2]||"";
-  document.getElementById("lon").value = p[3]||"";
+  var p=document.getElementById("q1").value.split("|");
+  document.getElementById("lat").value=p[2]||"";
+  document.getElementById("lon").value=p[3]||"";
 }
-function rand(n){const c="abcdefghjkmnpqrstuvwxyz23456789ABCDEFGHJKMNPQRSTUVWXYZ";let s="";const a=new Uint32Array(n);crypto.getRandomValues(a);for(let i=0;i<n;i++)s+=c[a[i]%c.length];return s}
-function cp(btn,val){navigator.clipboard.writeText(val).then(()=>{btn.classList.add("done");const o=btn.textContent;btn.textContent="Copied ✓";setTimeout(()=>{btn.classList.remove("done");btn.textContent=o},1600)})}
+function rand(n){var c="abcdefghjkmnpqrstuvwxyz23456789ABCDEFGHJKMNPQRSTUVWXYZ",s="",a=new Uint32Array(n);crypto.getRandomValues(a);for(var i=0;i<n;i++)s+=c[a[i]%c.length];return s}
+function cp(btn,val){navigator.clipboard.writeText(val).then(function(){var o=btn.textContent;btn.classList.add("done");btn.textContent="✓";setTimeout(function(){btn.classList.remove("done");btn.textContent=o},1500)})}
 function aiUi(){document.getElementById("aiKeyRow").style.display=document.getElementById("aiProvider").value==="none"?"none":"block"}
 
 function build(){
-  const parts = document.getElementById("q1").value.split("|");
-  const tz = parts[0], market = parts[1];
-  const hasP=document.getElementById("hasPartner").checked, hasH=document.getElementById("hasHelper").checked;
-  const prov=document.getElementById("aiProvider").value;
+  var parts=document.getElementById("q1").value.split("|"), tz=parts[0], market=parts[1];
+  var hasP=document.getElementById("hasPartner").checked, hasH=document.getElementById("hasHelper").checked;
+  var prov=document.getElementById("aiProvider").value;
 
-  // 熱量：收集 + 下限護欄（同引擎 KCAL_FLOOR 一致）
-  const caps={}; let tooLow=false;
-  document.querySelectorAll("#kBox .kperson").forEach(r=>{
-    const n=r.querySelector('input[type=text]').value.trim();
-    const v=Number(r.querySelector('input[type=number]').value);
-    if(n && v>0){ if(v<1200){tooLow=true;} else caps[n]=v; }
+  var caps={}, tooLow=false;
+  [].slice.call(document.querySelectorAll("#kBox .kperson")).forEach(function(r){
+    var n=r.querySelector('input[type=text]').value.trim(), v=Number(r.querySelector('input[type=number]').value);
+    if(n&&v>0){ if(v<1200) tooLow=true; else caps[n]=v; }
   });
-  if(tooLow) alert("熱量目標低於 1200 kcal／日嘅項目已略過。本系統唔會協助設定極端限制；如有減重需要，建議先諮詢註冊營養師或醫生。\n\nEntries below 1200 kcal/day were skipped. This system does not assist with extreme restriction — please consult a dietitian or doctor.");
+  if(tooLow) alert(T("alert_low"));
 
-  const prefs={
-    cuisine_market: market,
-    avoid: document.getElementById("avoid").value||"none",
-    lunchbox: document.getElementById("lunchbox").value,
-    soup: document.getElementById("soup").value,
-    spice: document.getElementById("spice").value,
-    notes: document.getElementById("notes").value||"",
-    portions: Number(document.getElementById("portions").value)||4,
-    allergens: picked("ag", ALLERGENS),
-    diet_block: picked("dg", DIET_TAGS),
-    kcal_caps: caps,
-    kcal_dinner_share: 1/3
+  var prefs={
+    cuisine_market:market,
+    avoid:document.getElementById("avoid").value||"none",
+    lunchbox:document.getElementById("lunchbox").value,
+    soup:document.getElementById("soup").value,
+    spice:document.getElementById("spice").value,
+    notes:document.getElementById("notes").value||"",
+    portions:Number(document.getElementById("portions").value)||4,
+    allergens:picked("ag",ALLERGENS),
+    diet_block:picked("dg",DIET_TAGS),
+    kcal_caps:caps,
+    kcal_dinner_share:1/3
   };
-  const provMap={gemini:"gemini",anthropic:"anthropic",openai_compat:"openai"};
-  const fnUrl=document.getElementById("fnUrl").value;
-  const rows=[
+  var provMap={gemini:"gemini",anthropic:"anthropic",openai_compat:"openai"};
+  var fnUrl=document.getElementById("fnUrl").value;
+  var rows=[
     ["TELEGRAM_TOKEN",document.getElementById("tgToken").value],
     ["TG_WEBHOOK_SECRET",rand(24)],
     ["PAIR_CODE",rand(8)],
@@ -261,42 +437,66 @@ function build(){
     ["UPDATE_URL","https://hearthstack-dist.s3.ap-southeast-1.amazonaws.com/hearthstack-kitchen.zip"],
     prov!=="none"?["LLM_PROVIDER",provMap[prov]]:null,
     prov!=="none"?["LLM_API_KEY",document.getElementById("llmKey").value||""]:null,
-    prov!=="none"&&document.getElementById("llmModel").value?["LLM_MODEL",document.getElementById("llmModel").value]:null,
-    document.getElementById("shopday").value?["SHOP_DAY_2",document.getElementById("shopday").value]:null,
+    (prov!=="none"&&document.getElementById("llmModel").value)?["LLM_MODEL",document.getElementById("llmModel").value]:null,
+    document.getElementById("shopday").value?["SHOP_DAY_2",document.getElementById("shopday").value]:null
   ].filter(Boolean);
 
-  const t=document.getElementById("envTable");t.innerHTML="<tr><th>Key</th><th>Value</th><th></th></tr>";
-  for(const [k,v] of rows){const tr=document.createElement("tr");
-    tr.innerHTML=`<td><code>${k}</code></td><td><code>${v?String(v).replace(/</g,"&lt;"):"<span class='muted'>— add later</span>"}</code></td><td></td>`;
-    const b=document.createElement("button");b.className="copy";b.textContent="Copy";b.onclick=()=>cp(b,v||"");tr.lastElementChild.appendChild(b);t.appendChild(tr)}
-  // PORTION_FACTOR 提示行（非必填）
-  const tr=document.createElement("tr");
-  tr.innerHTML=`<td><code>PORTION_FACTOR</code></td><td class="muted" style="font-size:12px">Optional — raise to 1.2 or 1.3 if dishes come out smaller than your family eats（若實測份量偏細，調高至 1.2–1.3）</td><td></td>`;
+  var t=document.getElementById("envTable");
+  t.innerHTML="<tr><th>"+T("th_key")+"</th><th>"+T("th_val")+"</th><th></th></tr>";
+  rows.forEach(function(kv){
+    var tr=document.createElement("tr");
+    tr.innerHTML="<td><code>"+kv[0]+"</code></td><td><code>"+(kv[1]?String(kv[1]).replace(/</g,"&lt;"):"<span class='muted'>"+T("add_later")+"</span>")+"</code></td><td></td>";
+    var b=document.createElement("button"); b.className="copy"; b.textContent="Copy";
+    b.onclick=function(){cp(b,kv[1]||"")};
+    tr.lastElementChild.appendChild(b); t.appendChild(tr);
+  });
+  var tr=document.createElement("tr");
+  tr.innerHTML="<td><code>PORTION_FACTOR</code></td><td class='muted' style='font-size:12px'>"+T("pf_note")+"</td><td></td>";
   t.appendChild(tr);
 
   document.getElementById("prefs").value=JSON.stringify(prefs,null,1);
 
-  const cl=document.getElementById("checklist");cl.innerHTML="";
-  const blocked=[...prefs.allergens,...prefs.diet_block];
-  const steps=[
-    "Install Hub Step 1 — Duplicate the Notion template + connect your integration to it (••• → Connections)",
-    "Install Hub Step 2 — Create your bot with @BotFather; paste the token here and regenerate",
-    "Install Hub Step 3 — Launch on AWS (or manual Lambda: paste every row of table ① above)",
-    "Open your Setup Doctor page — it auto-sets the webhook and discovers all 5 databases",
-    "Telegram: send your PAIR_CODE to the bot → you're Admin"+(hasP||hasH?"; family sends /start, you tap approve":""),
-    blocked.length?`Telegram: tap 🚫 過敏原 and confirm your blocks show as ✅ — ${blocked.join("、")}`:"Telegram: tap 🚫 過敏原 if anyone develops an allergy later — it applies from the next menu onward",
-    Object.keys(caps).length?"Telegram: tap 🔥 熱量目標 and confirm each person's daily target":null,
-    prov!=="none"?"Test AI drafting: Lambda → Test → {\"job\":\"sunday_draft\"} → approval buttons arrive in Telegram":"No-AI mode: use the Menu Prompt page in your Notion template with any AI chat, or write menus by hand",
-    "Final — Doctor page all green ✅",
-  ].filter(Boolean);
-  for(const s of steps){const li=document.createElement("li");li.textContent=s;cl.appendChild(li)}
-  document.getElementById("out").style.display="block";window.scrollTo({top:document.getElementById("out").offsetTop-10,behavior:"smooth"});
+  var blocked=prefs.allergens.concat(prefs.diet_block);
+  var steps=[T("cl1"),T("cl2"),T("cl3"),T("cl4"),
+    T("cl5")+((hasP||hasH)?T("cl5b"):""),
+    blocked.length?(T("cl6")+blocked.join("、")):T("cl6b"),
+    Object.keys(caps).length?T("cl7"):null,
+    prov!=="none"?T("cl8"):T("cl8b"),
+    T("cl9")].filter(Boolean);
+  var cl=document.getElementById("checklist"); cl.innerHTML="";
+  steps.forEach(function(s){ var li=document.createElement("li"); li.textContent=s; cl.appendChild(li); });
+
+  document.getElementById("out").style.display="block";
+  window.scrollTo({top:document.getElementById("out").offsetTop-10,behavior:"smooth"});
 }
 
-// init
-mkChk("agBox", ALLERGENS, ALLERGEN_EN, "ag");
-mkChk("dgBox", DIET_TAGS, DIET_EN, "dg");
-addPerson(); setGeo();
+(function(){
+  var btns=[].slice.call(document.querySelectorAll(".langbar button"));
+  function set(l){
+    if(!I18N[l]) return; LANG=l;
+    document.querySelectorAll("[data-i]").forEach(function(el){
+      var v=I18N[l][el.getAttribute("data-i")]; if(v!==undefined) el.innerHTML=v;
+    });
+    document.querySelectorAll("[data-ph]").forEach(function(el){
+      var v=I18N[l][el.getAttribute("data-ph")]; if(v!==undefined) el.placeholder=v;
+    });
+    mkChk("agBox",ALLERGENS,"_agl","ag");
+    mkChk("dgBox",DIET_TAGS,"_dgl","dg");
+    [].slice.call(document.querySelectorAll("#kBox .kperson")).forEach(function(d){
+      d.querySelector('input[type=text]').placeholder=(l==="zh"?"稱呼，例如：爸爸":"Name, e.g. Dad");
+      d.querySelector('input[type=number]').placeholder=(l==="zh"?"kcal／日":"kcal/day");
+    });
+    document.body.lang=(l==="zh"?"zh-Hant":"en");
+    document.documentElement.lang=document.body.lang;
+    document.title=(l==="zh"?"Hearthstack Kitchen — 設定精靈":"Hearthstack Kitchen — Setup Wizard");
+    btns.forEach(function(x){ x.setAttribute("aria-pressed", x.dataset.set===l?"true":"false"); });
+    try{ localStorage.setItem("hs_lang",l); }catch(e){}
+  }
+  btns.forEach(function(x){ x.addEventListener("click",function(){ set(x.dataset.set); }); });
+  addPerson(); setGeo();
+  var saved=null; try{ saved=localStorage.getItem("hs_lang"); }catch(e){}
+  set(saved || (/^zh/i.test(navigator.language||"")?"zh":"en"));
+})();
 </script>
 </body>
 </html>
